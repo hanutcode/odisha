@@ -14,13 +14,13 @@ IRIS deadline: noon, Tue 13 Oct 2026. Legend: ✅ done · ⚠️ needs a decisio
 | Hindi and Odia reason text checked by a native speaker | ❌ drafts only (`odia_checked = False`) | `outputs/reason_codes.csv` |
 | Tests: 25 pipeline + 14 workspace, all passing | ✅ | `make test`, `manage.py test workspace` |
 | Archive for Zenodo with checksums | ✅ built, ❌ not uploaded | `dist/code.zip`, `dist/processed_data.zip` (`make archive`) |
-| Production server updated | ❌ run `./deploy/sync-to-server.sh` | `deploy/README.md` |
+| Production server updated | ✅ updated manually 11 Oct (Hanut) | Public fair page: http://167.172.152.167/cm/fair · Workspace login: http://167.172.152.167/cm/login/ |
 
 ## Research and forms (the student's / team's work, not engineering)
 
 | Item | Status |
 |---|---|
-| Model code (`model/run_model.py`) and real outputs | ✅ written and run 10 Oct: 30 districts, 4 flagged, contract check passes. Not yet committed in git (`model_run_id = uncommitted`) |
+| Model code (`model/run_model.py`) and real outputs | ✅ written and run 10 Oct: 30 districts, 4 flagged, contract check passes. Committed as `c503c28` and pushed to github.com/hanutcode/odisha; outputs re-run with `model_run_id = c503c28` (validate OK) |
 | Synopsis, research paper, 90-second video | ❌ text not in the project. Silent 90 s visual video made (AI-assisted, labels only); Hanut records his own narration |
 | OSF pre-registration link | ❌ not recorded |
 | Go/no-go decision (NFHS-6 has no district data) | ⚠️ `docs/data_audit.md`, Decision line |
