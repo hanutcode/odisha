@@ -1,0 +1,5 @@
+# Optional: inference libraries for Hanut's model. Install only the one you choose.
+#   .venv/bin/python -m pip install -r requirements-model.txt
+pymc>=5
+arviz
+# numpyro and jax are the alternative: .venv/bin/python -m pip install numpyro

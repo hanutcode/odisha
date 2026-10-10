@@ -1,0 +1,13 @@
+{% extends "workspace/base.html" %}
+{% block title %}{{ run.get_step_display }}{% endblock %}
+{% block content %}
+<div class="head">
+  <div>
+    <h1>{{ run.get_step_display }}</h1>
+    <p class="muted">{{ run.started|date:"j M Y, H:i:s" }} · {{ run.user.username }} · {{ run.seconds|floatformat:1 }} s ·
+      {% if run.ok %}<span class="pill ok">OK</span>{% else %}<span class="pill bad">Failed</span>{% endif %}</p>
+  </div>
+  <div class="row"><a class="btn" href="{% url 'pipeline' %}">All runs</a>{% if run.step == "panel" or run.step == "crosswalk" %}<a class="btn primary" href="{% url 'review' %}">Review names</a>{% endif %}</div>
+</div>
+<pre class="log">{{ run.log|default:"(no output)" }}</pre>
+{% endblock %}

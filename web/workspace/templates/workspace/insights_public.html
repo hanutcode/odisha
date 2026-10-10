@@ -1,0 +1,21 @@
+{% load static %}<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Odisha child marriage data</title>
+<link rel="stylesheet" href="{% static 'workspace/app.css' %}">
+<style>.ocm-public{max-width:1180px;margin:0 auto;padding-block:24px 48px;padding-inline:16px}</style>
+</head>
+<body>
+<div class="ocm-public">
+{% if not dash_data %}
+  <p class="muted">The data is not available yet.</p>
+{% else %}
+  {% include "workspace/_insights_runtime.html" %}
+  {% include "workspace/_insights_body.html" %}
+  <p class="small muted" style="margin-top:16px"><a href="{% url 'map_public' %}">Open the full district map</a> (English, Hindi, Odia)</p>
+{% endif %}
+</div>
+</body>
+</html>

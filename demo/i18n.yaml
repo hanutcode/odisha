@@ -1,0 +1,148 @@
+# Interface text for the demo tool. Reason-code wording lives in outputs/reason_codes.csv (Hanut's).
+# Hindi and Odia here are first drafts: the Odia speaker must check every `or` line
+# before the fair (Sweksha's task, Mon 5 / Sat 10 Oct). Set odia_checked: true when done.
+odia_checked: false
+
+en:
+  btn_rec: Police cases 2016–21
+  btn_drop: Girls' drop-off, Class 9→10
+  view_rec_s: Child-marriage cases recorded by police, 2016–2021
+  view_drop: "Girls' drop-off, Class 9 to 10 (avg 2016-17 to 2020-21)"
+  highest_list_v: Highest
+  survey_title: Child marriage in Odisha districts — NFHS survey figures
+  survey_sub: Share of women aged 20–24 married before 18
+  survey_banner: Published figures — NFHS surveys, police-recorded cases (NCRB) and school enrolment (UDISE+). Model estimates will appear here once the model is ready.
+  survey_source: "Sources: NFHS-4 (2015–16) and NFHS-5 (2019–21) district fact sheets, IIPS / MoHFW; NCRB Crime in India; UDISE+"
+  survey_note: Published NFHS survey estimate for this district, not a model result.
+  view_n5: NFHS-5 (2019–21)
+  view_n4: NFHS-4 (2015–16)
+  view_chg: Change, NFHS-4 to NFHS-5
+  highest_list: Highest in NFHS-5
+  lang_name: English
+  title: Hidden child marriage risk — Odisha districts
+  subtitle: Estimated true risk compared with recorded cases
+  welfare_only: For welfare outreach only — school re-enrolment and links to government schemes. Never for policing.
+  mock_banner: MOCK DATA — random numbers for testing the tool. Not results.
+  view: Show
+  view_est: Estimated true rate
+  view_rec: Recorded cases
+  view_det: Chance a case is recorded
+  est_rate: Estimated share of women 20–24 married before 18
+  interval: Likely range
+  recorded: Recorded cases
+  detection: Chance a child marriage is recorded
+  flagged: Flagged for outreach
+  why: Why this district is flagged
+  not_flagged: Not flagged
+  click_hint: Tap a district to see details
+  flagged_list: Flagged districts
+  source_note: District-level public data only. No individual or village is identified.
+  low: Low
+  high: High
+
+hi:
+  btn_rec: पुलिस मामले 2016–21
+  btn_drop: लड़कियों की कमी, कक्षा 9→10
+  view_rec_s: पुलिस द्वारा दर्ज बाल विवाह मामले, 2016–2021
+  view_drop: "लड़कियों की कमी, कक्षा 9 से 10 (औसत 2016-17 से 2020-21)"
+  highest_list_v: सबसे अधिक
+  survey_title: ओडिशा के ज़िलों में बाल विवाह — NFHS सर्वेक्षण आँकड़े
+  survey_sub: 18 से पहले विवाहित 20–24 वर्ष की महिलाओं का हिस्सा
+  survey_banner: प्रकाशित आँकड़े — NFHS सर्वेक्षण, पुलिस द्वारा दर्ज मामले (NCRB) और स्कूल नामांकन (UDISE+)। मॉडल तैयार होने पर अनुमान यहाँ दिखेंगे।
+  survey_source: "स्रोत: NFHS-4 (2015–16) और NFHS-5 (2019–21) ज़िला फ़ैक्ट शीट, IIPS / MoHFW"
+  survey_note: इस ज़िले का प्रकाशित NFHS सर्वेक्षण अनुमान, मॉडल का परिणाम नहीं।
+  view_n5: NFHS-5 (2019–21)
+  view_n4: NFHS-4 (2015–16)
+  view_chg: बदलाव, NFHS-4 से NFHS-5
+  highest_list: NFHS-5 में सबसे अधिक
+  lang_name: हिन्दी
+  title: छिपे बाल विवाह का जोखिम — ओडिशा के ज़िले
+  subtitle: अनुमानित वास्तविक जोखिम बनाम दर्ज मामले
+  welfare_only: केवल कल्याण कार्य के लिए — स्कूल में दोबारा दाखिला और सरकारी योजनाओं से जोड़ना। पुलिस कार्रवाई के लिए कभी नहीं।
+  mock_banner: नकली डेटा — टूल जाँचने के लिए यादृच्छिक संख्याएँ। ये परिणाम नहीं हैं।
+  view: दिखाएँ
+  view_est: अनुमानित वास्तविक दर
+  view_rec: दर्ज मामले
+  view_det: मामला दर्ज होने की संभावना
+  est_rate: 18 से पहले विवाहित 20–24 वर्ष की महिलाओं का अनुमानित हिस्सा
+  interval: संभावित सीमा
+  recorded: दर्ज मामले
+  detection: बाल विवाह दर्ज होने की संभावना
+  flagged: सहायता के लिए चिह्नित
+  why: यह ज़िला क्यों चिह्नित है
+  not_flagged: चिह्नित नहीं
+  click_hint: विवरण देखने के लिए किसी ज़िले पर टैप करें
+  flagged_list: चिह्नित ज़िले
+  source_note: केवल ज़िला-स्तरीय सार्वजनिक डेटा। किसी व्यक्ति या गाँव की पहचान नहीं होती।
+  low: कम
+  high: अधिक
+
+or:
+  btn_rec: ପୋଲିସ ମାମଲା 2016–21
+  btn_drop: ଝିଅଙ୍କ ହ୍ରାସ, ଶ୍ରେଣୀ 9→10
+  view_rec_s: ପୋଲିସ ଦ୍ୱାରା ଲିପିବଦ୍ଧ ବାଲ୍ୟ ବିବାହ ମାମଲା, 2016–2021
+  view_drop: "ଝିଅମାନଙ୍କ ହ୍ରାସ, ଶ୍ରେଣୀ 9 ରୁ 10 (ହାରାହାରି 2016-17 ରୁ 2020-21)"
+  highest_list_v: ସର୍ବାଧିକ
+  survey_title: ଓଡ଼ିଶାର ଜିଲ୍ଲାରେ ବାଲ୍ୟ ବିବାହ — NFHS ସର୍ଭେ ତଥ୍ୟ
+  survey_sub: ୧୮ ପୂର୍ବରୁ ବିବାହିତ ୨୦–୨୪ ବର୍ଷର ମହିଳାଙ୍କ ଅଂଶ
+  survey_banner: ପ୍ରକାଶିତ ତଥ୍ୟ — NFHS ସର୍ଭେ, ପୋଲିସ ଲିପିବଦ୍ଧ ମାମଲା (NCRB) ଓ ସ୍କୁଲ ନାମଲେଖା (UDISE+)। ମଡେଲ ପ୍ରସ୍ତୁତ ହେଲେ ଆନୁମାନିକ ହାର ଏଠାରେ ଦେଖାଯିବ।
+  survey_source: "ଉତ୍ସ: NFHS-4 (2015–16) ଓ NFHS-5 (2019–21) ଜିଲ୍ଲା ଫ୍ୟାକ୍ଟ ସିଟ୍, IIPS / MoHFW"
+  survey_note: ଏହି ଜିଲ୍ଲାର ପ୍ରକାଶିତ NFHS ସର୍ଭେ ଅନୁମାନ, ମଡେଲ ଫଳାଫଳ ନୁହେଁ।
+  view_n5: NFHS-5 (2019–21)
+  view_n4: NFHS-4 (2015–16)
+  view_chg: ପରିବର୍ତ୍ତନ, NFHS-4 ରୁ NFHS-5
+  highest_list: NFHS-5 ରେ ସର୍ବାଧିକ
+  lang_name: ଓଡ଼ିଆ
+  title: ଲୁଚିରହିଥିବା ବାଲ୍ୟ ବିବାହର ବିପଦ — ଓଡ଼ିଶାର ଜିଲ୍ଲା
+  subtitle: ଆନୁମାନିକ ପ୍ରକୃତ ବିପଦ ତୁଳନାରେ ଲିପିବଦ୍ଧ ମାମଲା
+  welfare_only: କେବଳ କଲ୍ୟାଣ କାର୍ଯ୍ୟ ପାଇଁ — ସ୍କୁଲରେ ପୁନଃ ନାମଲେଖା ଓ ସରକାରୀ ଯୋଜନା ସହ ଯୋଡ଼ିବା। ପୋଲିସ କାର୍ଯ୍ୟାନୁଷ୍ଠାନ ପାଇଁ କଦାପି ନୁହେଁ।
+  mock_banner: ନକଲି ତଥ୍ୟ — ଟୁଲ୍ ପରୀକ୍ଷା ପାଇଁ ଅନିୟମିତ ସଂଖ୍ୟା। ଏଗୁଡ଼ିକ ଫଳାଫଳ ନୁହେଁ।
+  view: ଦେଖାନ୍ତୁ
+  view_est: ଆନୁମାନିକ ପ୍ରକୃତ ହାର
+  view_rec: ଲିପିବଦ୍ଧ ମାମଲା
+  view_det: ମାମଲା ଲିପିବଦ୍ଧ ହେବାର ସମ୍ଭାବନା
+  est_rate: ୧୮ ପୂର୍ବରୁ ବିବାହିତ ୨୦–୨୪ ବର୍ଷର ମହିଳାଙ୍କ ଆନୁମାନିକ ଅଂଶ
+  interval: ସମ୍ଭାବ୍ୟ ପରିସର
+  recorded: ଲିପିବଦ୍ଧ ମାମଲା
+  detection: ବାଲ୍ୟ ବିବାହ ଲିପିବଦ୍ଧ ହେବାର ସମ୍ଭାବନା
+  flagged: ସହାୟତା ପାଇଁ ଚିହ୍ନିତ
+  why: ଏହି ଜିଲ୍ଲା କାହିଁକି ଚିହ୍ନିତ
+  not_flagged: ଚିହ୍ନିତ ନୁହେଁ
+  click_hint: ବିବରଣୀ ଦେଖିବାକୁ ଏକ ଜିଲ୍ଲାକୁ ଟାପ୍ କରନ୍ତୁ
+  flagged_list: ଚିହ୍ନିତ ଜିଲ୍ଲା
+  source_note: କେବଳ ଜିଲ୍ଲା ସ୍ତରୀୟ ସାର୍ବଜନୀନ ତଥ୍ୟ। କୌଣସି ବ୍ୟକ୍ତି କିମ୍ବା ଗ୍ରାମର ପରିଚୟ ପ୍ରକାଶ ହୁଏ ନାହିଁ।
+  low: କମ୍
+  high: ଅଧିକ
+
+# District names in Hindi and Odia, keyed by Census 2011 code. Odia speaker to check.
+district_names:
+  370: {hi: बरगढ़, or: ବରଗଡ଼}
+  371: {hi: झारसुगुड़ा, or: ଝାରସୁଗୁଡ଼ା}
+  372: {hi: संबलपुर, or: ସମ୍ବଲପୁର}
+  373: {hi: देवगढ़, or: ଦେବଗଡ଼}
+  374: {hi: सुंदरगढ़, or: ସୁନ୍ଦରଗଡ଼}
+  375: {hi: केंदुझर, or: କେନ୍ଦୁଝର}
+  376: {hi: मयूरभंज, or: ମୟୂରଭଞ୍ଜ}
+  377: {hi: बालेश्वर, or: ବାଲେଶ୍ୱର}
+  378: {hi: भद्रक, or: ଭଦ୍ରକ}
+  379: {hi: केंद्रपाड़ा, or: କେନ୍ଦ୍ରାପଡ଼ା}
+  380: {hi: जगतसिंहपुर, or: ଜଗତସିଂହପୁର}
+  381: {hi: कटक, or: କଟକ}
+  382: {hi: जाजपुर, or: ଯାଜପୁର}
+  383: {hi: ढेंकानाल, or: ଢେଙ୍କାନାଳ}
+  384: {hi: अनुगुल, or: ଅନୁଗୋଳ}
+  385: {hi: नयागढ़, or: ନୟାଗଡ଼}
+  386: {hi: खोर्धा, or: ଖୋର୍ଦ୍ଧା}
+  387: {hi: पुरी, or: ପୁରୀ}
+  388: {hi: गंजाम, or: ଗଞ୍ଜାମ}
+  389: {hi: गजपति, or: ଗଜପତି}
+  390: {hi: कंधमाल, or: କନ୍ଧମାଳ}
+  391: {hi: बौध, or: ବୌଦ୍ଧ}
+  392: {hi: सुबर्णपुर, or: ସୁବର୍ଣ୍ଣପୁର}
+  393: {hi: बलांगीर, or: ବଲାଙ୍ଗୀର}
+  394: {hi: नुआपाड़ा, or: ନୂଆପଡ଼ା}
+  395: {hi: कालाहांडी, or: କଳାହାଣ୍ଡି}
+  396: {hi: रायगड़ा, or: ରାୟଗଡ଼ା}
+  397: {hi: नबरंगपुर, or: ନବରଙ୍ଗପୁର}
+  398: {hi: कोरापुट, or: କୋରାପୁଟ}
+  399: {hi: मलकानगिरि, or: ମାଲକାନଗିରି}

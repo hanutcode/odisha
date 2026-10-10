@@ -1,0 +1,11 @@
+{% extends "workspace/base.html" %}
+{% block title %}Insights{% endblock %}
+{% block content %}
+{% if not dash_data %}
+  <div class="card muted">The district panel hasn't been built yet. Run <b>Build panel</b> on the <a href="{% url 'pipeline' %}">Pipeline</a> page.</div>
+{% else %}
+  <p class="small muted" style="margin:0 0 12px">Built from the current district panel ({{ built|date:"j M Y, H:i" }}). Visitors can see the same page at <a href="{% url 'insights_public' %}" target="_blank">/fair/</a>.</p>
+  {% include "workspace/_insights_runtime.html" %}
+  {% include "workspace/_insights_body.html" %}
+{% endif %}
+{% endblock %}

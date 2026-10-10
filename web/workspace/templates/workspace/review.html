@@ -1,0 +1,73 @@
+{% extends "workspace/base.html" %}
+{% block title %}Crosswalk review{% endblock %}
+{% block content %}
+<div class="head">
+  <div>
+    <h1>Crosswalk review</h1>
+    <p class="muted">Engineers clear unmatched names and crosswalk problems. Then check the 20 sampled matches. Rebuild the panel after changes.</p>
+  </div>
+</div>
+
+<section class="card" style="margin-bottom:14px">
+  <h2>Names that need a decision <span class="pill {% if review %}warn{% else %}ok{% endif %}">{{ review|length }}</span></h2>
+  {% if review %}
+    <div class="tbl-wrap"><table>
+      <tr><th>State</th><th>Name in source</th><th>Status</th><th class="num">Score</th><th>Best guess</th><th>File</th></tr>
+      {% for r in review %}<tr><td>{{ r.state }}</td><td><b>{{ r.district }}</b></td><td><span class="pill {% if r.match_method == 'fuzzy' %}warn{% else %}bad{% endif %}">{{ r.match_method|default:"no unit" }}</span></td>
+        <td class="num">{{ r.match_score|floatformat:0 }}</td><td>{{ r.matched_name }}</td><td class="mono small">{{ r.input_file }}</td></tr>{% endfor %}
+    </table></div>
+  {% else %}<p class="muted">Nothing to review. Build the panel first if you haven't.</p>{% endif %}
+
+  {% if is_engineer and unit_choices %}
+    <h3 style="margin-top:16px">Fix a name by hand</h3>
+    <form method="post" action="{% url 'override_add' %}" class="row">
+      {% csrf_token %}
+      <input type="text" name="state" id="ov_state" placeholder="State as in source" required>
+      <input type="text" name="district" id="ov_district" placeholder="District as in source" required>
+      <select name="unit_id" id="ov_unit" required>
+        <option value="">Matches unit…</option>
+        {% for uid, label in unit_choices %}<option value="{{ uid }}">{{ label }} ({{ uid }})</option>{% endfor %}
+      </select>
+      <button class="btn primary" type="submit">Save override</button>
+    </form>
+    <p class="small muted" style="margin-top:6px">A real spelling variant is better added to the aliases file on the Data page, so it works for every source.</p>
+  {% endif %}
+  {% if overrides %}
+    <h3 style="margin-top:16px">Saved overrides ({{ overrides|length }})</h3>
+    <div class="tbl-wrap"><table><tr><th>State</th><th>District</th><th>Unit</th></tr>
+      {% for o in overrides %}<tr><td>{{ o.state }}</td><td>{{ o.district }}</td><td class="mono">{{ o.unit_id }}</td></tr>{% endfor %}</table></div>
+  {% endif %}
+</section>
+
+<section class="card" style="margin-bottom:14px">
+  <h2>Crosswalk problems <span class="pill {% if problems %}warn{% else %}ok{% endif %}">{{ problems|length }}</span></h2>
+  {% if problems %}
+    <div class="tbl-wrap"><table><tr><th>Issue</th><th>Code</th><th>Name</th><th>How to fix</th></tr>
+      {% for p in problems %}<tr><td><span class="pill warn">{{ p.issue }}</span></td><td class="mono">{{ p.code }}</td><td>{{ p.name }}</td><td>{{ p.fix }}</td></tr>{% endfor %}
+    </table></div>
+  {% else %}<p class="muted">No problems recorded.</p>{% endif %}
+</section>
+
+<section class="card src" id="spot">
+  <h2>Spot checks</h2>
+  {% if spot %}
+    <p class="small muted">Is each source name matched to the right district? Fuzzy matches come first.</p>
+    <form method="post" action="{% url 'spot_save' %}">
+      {% csrf_token %}
+      <div class="tbl-wrap"><table>
+        <tr><th>State</th><th>Name in source</th><th>Matched to</th><th>How</th><th>Correct?</th><th>Note</th></tr>
+        {% for r in spot %}
+          <tr><td>{{ r.state }}</td><td><b>{{ r.district }}</b></td><td>{{ r.matched_name }}</td><td><span class="pill plain">{{ r.match_method }}</span></td>
+            <td><select name="ok_{{ forloop.counter0 }}" id="ok_{{ forloop.counter0 }}" {% if not is_student %}disabled{% endif %}>
+                <option value="" {% if not r.hanut_ok %}selected{% endif %}>—</option>
+                <option value="yes" {% if r.hanut_ok == 'yes' %}selected{% endif %}>Yes</option>
+                <option value="no" {% if r.hanut_ok == 'no' %}selected{% endif %}>No</option></select></td>
+            <td><input type="text" name="note_{{ forloop.counter0 }}" id="note_{{ forloop.counter0 }}" value="{{ r.hanut_note }}" {% if not is_student %}disabled{% endif %}></td></tr>
+        {% endfor %}
+      </table></div>
+      {% if is_student %}<button class="btn primary" type="submit" style="margin-top:10px">Save spot checks</button>
+      {% else %}<p class="small muted" style="margin-top:8px">Only the Engineer role can record spot checks.</p>{% endif %}
+    </form>
+  {% else %}<p class="muted">The sample appears after the first panel build that matches names.</p>{% endif %}
+</section>
+{% endblock %}

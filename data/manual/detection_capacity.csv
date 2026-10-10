@@ -1,0 +1,4 @@
+# Detection-capacity covariates (z in the model).
+# variable: police_per_100k | childline_1098_present (0/1) | cmpo_count | anganwadi_per_1k
+# state-level rows: put the state name in `district` as ALL and the panel builder will broadcast it.
+state,district,year,variable,value,source_ref

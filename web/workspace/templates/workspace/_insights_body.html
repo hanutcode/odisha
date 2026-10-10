@@ -1,0 +1,376 @@
+<style>
+/* Tokens for the insights page, mapped onto the workspace palette (app.css), so both themes follow it. */
+:root{
+  --color-fg:var(--text); --color-fg-muted:var(--muted); --color-bg:var(--bg); --color-panel:var(--surface);
+  --color-border-line:var(--line); --color-bad:var(--bad); --color-ok:var(--ok); --color-warn:var(--warn);
+  --cds-chart-grid:var(--line); --cds-chart-axis:var(--muted); --cds-chart-status-critical:var(--bad);
+  --cds-surface-popover:var(--surface); --cds-border:var(--line); --cds-shadow-popover:0 6px 18px rgba(0,0,0,.14);
+  --cds-text-secondary:var(--muted); --cds-radius:12px; --cds-dur-slow:.3s; --cds-font-weight-medium:600;
+  --cds-gap-xs:4px; --cds-gap-sm:8px; --cds-gap-md:14px; --cds-gap-lg:20px;
+  --cds-pad-xs:4px; --cds-pad-sm:8px; --cds-pad-lg:16px;
+  --cds-font-size-caption:.8rem; --cds-font-size-body:.9rem; --cds-font-size-heading:1.05rem; --cds-font-size-title:1.9rem;
+  --font-anthropic-sans:var(--font); --font-anthropic-serif:Georgia,"Noto Serif","Times New Roman",serif;
+  --ocm-series-1:var(--accent); --ocm-series-2:var(--warn);
+}
+.dash-skeleton{color:transparent;background:var(--sunk);border-radius:6px;min-height:1em}
+.ocm h1{margin:0}
+</style>
+<style>
+.ocm { font-family: var(--font-anthropic-sans); display: grid; gap: var(--cds-gap-lg); }
+.ocm-head h1 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; text-wrap: balance; }
+.ocm-take { color: var(--color-fg-muted); margin: var(--cds-gap-xs) 0 0; max-width: 70ch; }
+.ocm-note { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin: 0; }
+.ocm-kpis { display: grid; gap: var(--cds-gap-md); grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); }
+.ocm-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); min-width: 0; position: relative; }
+.ocm-card h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
+.ocm-card .ocm-note { margin-top: var(--cds-gap-xs); }
+.ocm-kpi .k { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.ocm-kpi .v { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); font-variant-numeric: tabular-nums; margin-top: var(--cds-gap-xs); }
+.ocm-kpi .s { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin-top: var(--cds-gap-xs); }
+.ocm-grid { display: grid; gap: var(--cds-gap-md); grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); }
+.ocm-wide { grid-column: 1 / -1; }
+.ocm-seg { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs); margin-top: var(--cds-gap-sm); }
+.ocm-seg button { font: inherit; font-size: var(--cds-font-size-caption); border: 1px solid var(--color-border-line); background: var(--color-bg); color: var(--color-fg); border-radius: var(--cds-radius); padding: var(--cds-pad-xs) var(--cds-pad-sm); cursor: pointer; }
+.ocm-seg button[aria-pressed="true"] { background: var(--color-fg); color: var(--color-bg); border-color: var(--color-fg); }
+.ocm-seg button:focus-visible { outline: 2px solid var(--color-fg); outline-offset: 2px; }
+.ocm-chart { min-height: 18rem; margin-top: var(--cds-gap-md); position: relative; }
+.ocm-map { min-height: 22rem; }
+.ocm-chart svg { display: block; }
+.ocm-chart text { fill: var(--color-fg-muted); font-size: var(--cds-font-size-caption); font-family: var(--font-anthropic-sans); }
+.ocm-chart .lbl { fill: var(--color-fg); }
+.ocm-legend { display: flex; align-items: center; gap: var(--cds-gap-sm); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin-top: var(--cds-gap-sm); font-variant-numeric: tabular-nums; }
+.ocm-legend .ramp { height: 10px; width: 9rem; border-radius: 5px; }
+.ocm-tip { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); border-radius: var(--cds-radius); box-shadow: var(--cds-shadow-popover); padding: var(--cds-pad-xs) var(--cds-pad-sm); font-size: var(--cds-font-size-caption); line-height: 1.45; z-index: 3; max-width: 16rem; }
+.ocm-tip .t { color: var(--cds-text-secondary); }
+.ocm-tablebox { max-height: 30rem; overflow: auto; margin-top: var(--cds-gap-md); }
+.ocm-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: var(--cds-font-size-body); }
+.ocm-table th, .ocm-table td { text-align: right; padding: var(--cds-pad-xs) var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); white-space: nowrap; }
+.ocm-table th:first-child, .ocm-table td:first-child { text-align: left; }
+.ocm-table th { position: sticky; top: 0; background: var(--color-panel); font-weight: var(--cds-font-weight-medium); }
+.ocm-table th button { font: inherit; background: none; border: 0; color: inherit; cursor: pointer; padding: 0; }
+.ocm-search { font: inherit; margin-top: var(--cds-gap-sm); padding: var(--cds-pad-xs) var(--cds-pad-sm); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); background: var(--color-bg); color: var(--color-fg); width: min(100%, 18rem); }
+.ocm-flag { color: var(--color-bad); }
+[data-dash-source-state=empty] { color: transparent; }
+[data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
+.ocm-fail { display: flex; align-items: center; justify-content: center; gap: var(--cds-gap-xs); min-height: inherit; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+.ocm-fail i { width: .375rem; height: .375rem; border-radius: 50%; background: var(--color-bad); display: inline-block; }
+@media (max-width: 40rem) { .ocm-hide-narrow { display: none; } }
+</style>
+
+<div class="ocm">
+  <header class="ocm-head" id="top">
+    <h1>Odisha child marriage data</h1>
+    <p class="ocm-take dash-skeleton" id="takeaway" data-source="kpis">—</p>
+  </header>
+
+  <section class="ocm-kpis" id="headline" aria-label="Headline figures">
+    <div class="ocm-card ocm-kpi" id="kpi-avg">
+      <div class="k">Women 20–24 married before 18, NFHS-5 (2019–21)</div>
+      <div class="v dash-skeleton" data-source="kpis" data-field="avg_nfhs5" data-row="0">—</div>
+      <div class="s"><span data-source="kpis" data-field="change_avg" data-row="0">—</span> points since NFHS-4 · average of 30 districts</div>
+    </div>
+    <div class="ocm-card ocm-kpi" id="kpi-max">
+      <div class="k">Highest district, NFHS-5</div>
+      <div class="v dash-skeleton" data-source="kpis" data-field="max_nfhs5" data-row="0">—</div>
+      <div class="s" data-source="kpis" data-field="max_district" data-row="0">—</div>
+    </div>
+    <div class="ocm-card ocm-kpi" id="kpi-cases">
+      <div class="k">Police-recorded cases, PCM Act, 2016–2021</div>
+      <div class="v dash-skeleton" data-source="kpis" data-field="cases_total" data-row="0">—</div>
+      <div class="s">All 30 districts combined (NCRB)</div>
+    </div>
+    <div class="ocm-card ocm-kpi" id="kpi-gap">
+      <div class="k">Districts with NFHS-5 ≥ 25% and ≤ 3 recorded cases</div>
+      <div class="v dash-skeleton" data-source="kpis" data-field="gap_districts" data-row="0">—</div>
+      <div class="s">Common in surveys, rare in police records</div>
+    </div>
+  </section>
+
+  <div class="ocm-grid">
+    <section class="ocm-card ocm-wide" id="map-card">
+      <h2 id="map-title">District map</h2>
+      <p class="ocm-note">Tap or hover a district. Darker means higher.</p>
+      <div class="ocm-seg" role="group" aria-label="Map measure" id="map-seg"></div>
+      <div class="ocm-chart ocm-map dash-skeleton" id="map" data-source="odisha_map odisha_districts"></div>
+      <div class="ocm-legend" id="map-legend" aria-hidden="true"></div>
+    </section>
+
+    <section class="ocm-card" id="gap-card">
+      <h2>Survey rate against police records</h2>
+      <p class="ocm-note">Each dot is a district: NFHS-5 rate across, recorded cases 2016–2021 up.</p>
+      <div class="ocm-chart dash-skeleton" id="scatter" data-source="odisha_districts"></div>
+    </section>
+
+    <section class="ocm-card" id="cases-card">
+      <h2>Recorded cases per year, Odisha</h2>
+      <p class="ocm-note">Cases registered under the Prohibition of Child Marriage Act, 2006 (NCRB).</p>
+      <div class="ocm-chart dash-skeleton" id="cases" data-source="pcma_by_year"></div>
+    </section>
+
+    <section class="ocm-card" id="rain-card">
+      <h2>Rainfall compared with normal</h2>
+      <p class="ocm-note">Odisha average of district rainfall z-scores against 2000–2024 (CHIRPS). Below zero is drier.</p>
+      <div class="ocm-chart dash-skeleton" id="rain" data-source="rain_state"></div>
+    </section>
+
+    <section class="ocm-card" id="drop-card">
+      <h2>Girls moving from Class 9 to Class 10</h2>
+      <p class="ocm-note">Odisha: girls in Class 10 per 100 girls in Class 9 the year before (UDISE+). Year = school year end.</p>
+      <div class="ocm-chart dash-skeleton" id="drop" data-source="transition_state"></div>
+    </section>
+
+    <section class="ocm-card ocm-wide" id="table-card">
+      <h2>All districts</h2>
+      <p class="ocm-note">Sort by any column. Red marks a district with NFHS-5 ≥ 25% and 3 or fewer recorded cases.</p>
+      <input class="ocm-search" id="search" type="search" placeholder="Search districts" aria-label="Search districts">
+      <div class="ocm-tablebox">
+        <table class="ocm-table" id="dtable" data-source="odisha_districts" data-row-key="district">
+          <thead><tr>
+            <th data-field="district"><button type="button" data-k="district">District</button></th>
+            <th data-field="nfhs4_pct" class="ocm-hide-narrow"><button type="button" data-k="nfhs4_pct">NFHS-4 %</button></th>
+            <th data-field="nfhs5_pct"><button type="button" data-k="nfhs5_pct">NFHS-5 %</button></th>
+            <th data-field="change_pts"><button type="button" data-k="change_pts">Change, pts</button></th>
+            <th data-field="teen_preg5_pct" class="ocm-hide-narrow"><button type="button" data-k="teen_preg5_pct">Teen mothers/pregnant %</button></th>
+            <th data-field="cases_2016_2021"><button type="button" data-k="cases_2016_2021">Cases 2016–21</button></th>
+            <th data-field="g9_g10_dropoff_pct" class="ocm-hide-narrow"><button type="button" data-k="g9_g10_dropoff_pct">Class 9→10 drop-off %</button></th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <p class="ocm-note" id="about">Published, district-level figures only: NFHS-4 (2015–16) and NFHS-5 (2019–21) district fact sheets, NCRB Crime in India, UDISE+ and CHIRPS. These are not model estimates. For welfare outreach and research only, never for policing.</p>
+</div>
+
+<script>
+const num = (v) => (v === '' || v == null ? null : Number(v));
+window.ocmDistricts = (rows) => rows.map((r) => ({
+  code: num(r.code), district: r.district, nfhs4_pct: num(r.nfhs4_pct), nfhs5_pct: num(r.nfhs5_pct),
+  change_pts: num(r.change_pts), teen_preg5_pct: num(r.teen_preg5_pct), cases_2016_2021: num(r.cases_2016_2021),
+  g9_g10_dropoff_pct: num(r.g9_g10_dropoff_pct),
+}));
+
+dash.calc('kpis', {
+  title: 'Odisha headline figures',
+  description: 'District average NFHS-5 rate and change, the highest district, total recorded cases 2016–2021, and districts with NFHS-5 at least 25% but 3 or fewer cases.',
+  inputs: ['odisha_districts'],
+  fn: (odisha_districts) => {
+    const d = odisha_districts.map((r) => ({ name: r.district, n4: Number(r.nfhs4_pct), n5: Number(r.nfhs5_pct), c: Number(r.cases_2016_2021) }));
+    const avg5 = d.reduce((s, r) => s + r.n5, 0) / d.length;
+    const avg4 = d.reduce((s, r) => s + r.n4, 0) / d.length;
+    const top = d.reduce((a, b) => (b.n5 > a.n5 ? b : a));
+    return [{
+      avg_nfhs5: Math.round(avg5 * 10) / 10,
+      change_avg: Math.round((avg5 - avg4) * 10) / 10,
+      max_nfhs5: top.n5, max_district: top.name,
+      cases_total: d.reduce((s, r) => s + r.c, 0),
+      gap_districts: d.filter((r) => r.n5 >= 25 && r.c <= 3).length,
+    }];
+  },
+});
+
+dash.calc('rain_state', {
+  title: 'Odisha rainfall shock by year',
+  description: 'Average of the 30 districts’ rainfall z-scores (CHIRPS, 2000–2024 baseline) for each year 2015–2024.',
+  inputs: ['district_year'],
+  fn: (district_year) => {
+    const by = d3.rollup(district_year, (v) => d3.mean(v, (r) => Number(r.rain_shock_z)), (r) => Number(r.year));
+    return Array.from(by, ([year, z]) => ({ year, rain_shock_z: Math.round(z * 100) / 100 })).sort((a, b) => a.year - b.year);
+  },
+});
+
+dash.calc('transition_state', {
+  title: 'Odisha Class 9 to 10 transition',
+  description: 'Average across districts of girls in Class 10 per 100 girls in Class 9 the year before (UDISE+), 2017–2024.',
+  inputs: ['district_year'],
+  fn: (district_year) => {
+    const rows = district_year.filter((r) => r.g9_g10_transition !== '' && r.g9_g10_transition != null);
+    const by = d3.rollup(rows, (v) => d3.mean(v, (r) => Number(r.g9_g10_transition)), (r) => Number(r.year));
+    return Array.from(by, ([year, t]) => ({ year, per100: Math.round(t * 1000) / 10 })).sort((a, b) => a.year - b.year);
+  },
+});
+</script>
+
+<script>
+(() => {
+  const fmt1 = d3.format('.1f'), fmtC = d3.format(',');
+  const tokenColor = (v) => { const e = document.createElement('span'); e.style.color = v; document.body.appendChild(e); const c = getComputedStyle(e).color; e.remove(); return c; };
+  const fail = (el, s) => { el.classList.remove('dash-skeleton'); el.replaceChildren(); if (s === 'error' || s === 'connect' || s === 'declined') { const f = document.createElement('div'); f.className = 'ocm-fail'; const i = document.createElement('i'); f.append(i, document.createTextNode('Failed to load')); el.append(f); } };
+  const ready = (...ids) => ids.every((id) => dash.data(id).status === 'ok');
+  const statusOf = (...ids) => ids.map((id) => dash.data(id).status).find((s) => s !== 'ok') || 'ok';
+
+  function tipIn(box) {
+    let t = box.querySelector('.ocm-tip');
+    if (!t) { t = document.createElement('div'); t.className = 'ocm-tip'; t.hidden = true; box.append(t); }
+    return {
+      show(ev, lines) {
+        t.replaceChildren(...lines.map(([cls, txt]) => { const d = document.createElement('div'); if (cls) d.className = cls; d.textContent = txt; return d; }));
+        t.hidden = false;
+        const r = box.getBoundingClientRect(); let x = ev.clientX - r.left + 12, y = ev.clientY - r.top + 12;
+        const w = t.offsetWidth, h = t.offsetHeight;
+        if (x + w > box.clientWidth) x = Math.max(0, ev.clientX - r.left - w - 12);
+        if (y + h > box.clientHeight) y = Math.max(0, ev.clientY - r.top - h - 12);
+        t.style.left = x + 'px'; t.style.top = y + 'px';
+      },
+      hide() { t.hidden = true; },
+    };
+  }
+
+  // ---------------- map
+  const MEASURES = [
+    { k: 'nfhs5_pct', label: 'NFHS-5 rate', unit: '%', f: fmt1 },
+    { k: 'nfhs4_pct', label: 'NFHS-4 rate', unit: '%', f: fmt1 },
+    { k: 'change_pts', label: 'Change', unit: ' pts', f: (v) => (v > 0 ? '+' : '') + fmt1(v) },
+    { k: 'cases_2016_2021', label: 'Police cases 2016–21', unit: '', f: fmtC },
+    { k: 'g9_g10_dropoff_pct', label: 'Class 9→10 drop-off', unit: '%', f: fmt1 },
+  ];
+  let measure = 'nfhs5_pct', selected = null;
+  const seg = document.getElementById('map-seg');
+  MEASURES.forEach((m) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = m.label; b.dataset.k = m.k; b.id = 'map-' + m.k; b.addEventListener('click', () => { measure = m.k; drawMap(); }); seg.append(b); });
+
+  function drawMap() {
+    const box = document.getElementById('map'), leg = document.getElementById('map-legend');
+    seg.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.k === measure)));
+    if (!ready('odisha_map', 'odisha_districts')) { const s = statusOf('odisha_map', 'odisha_districts'); if (s !== 'loading') fail(box, s); leg.replaceChildren(); return; }
+    box.classList.remove('dash-skeleton');
+    const shapes = dash.data('odisha_map').data, dist = new Map(ocmDistricts(dash.data('odisha_districts').data).map((r) => [r.code, r]));
+    const m = MEASURES.find((x) => x.k === measure);
+    const vals = [...dist.values()].map((r) => r[m.k]).filter((v) => v != null);
+    const lo = d3.min(vals), hi = d3.max(vals);
+    const c0 = tokenColor('var(--color-bg)'), c1 = tokenColor(dash.colors[0]);
+    const ramp = measure === 'change_pts'
+      ? (v) => d3.interpolateRgb(c0, v < 0 ? tokenColor(dash.colors[1]) : c1)(0.15 + 0.85 * Math.abs(v) / Math.max(Math.abs(lo), Math.abs(hi)))
+      : (v) => d3.interpolateRgb(c0, c1)(0.12 + 0.88 * (hi === lo ? 1 : (v - lo) / (hi - lo)));
+    box.replaceChildren();
+    const svg = d3.select(box).append('svg').attr('width', '100%').attr('role', 'img').attr('aria-label', 'Map of Odisha districts: ' + m.label);
+    const g = svg.append('g');
+    const tip = tipIn(box);
+    g.selectAll('path').data(shapes).join('path')
+      .attr('d', (s) => s.d)
+      .attr('fill', (s) => { const r = dist.get(Number(s.code)); return r && r[m.k] != null ? ramp(r[m.k]) : tokenColor('var(--color-border-line)'); })
+      .attr('stroke', 'var(--color-panel)').attr('stroke-width', 1.2).style('cursor', 'pointer')
+      .attr('stroke', (s) => (Number(s.code) === selected ? 'var(--color-fg)' : 'var(--color-panel)'))
+      .attr('stroke-width', (s) => (Number(s.code) === selected ? 2.5 : 1.2))
+      .on('mousemove', (ev, s) => { const r = dist.get(Number(s.code)); if (!r) return; tip.show(ev, [['t', r.district], [null, `NFHS-5 ${fmt1(r.nfhs5_pct)}% · NFHS-4 ${fmt1(r.nfhs4_pct)}%`], [null, `Police cases 2016–21: ${fmtC(r.cases_2016_2021)}`], [null, `Class 9→10 drop-off: ${fmt1(r.g9_g10_dropoff_pct)}%`]]); })
+      .on('mouseleave', () => tip.hide())
+      .on('click', (ev, s) => { selected = selected === Number(s.code) ? null : Number(s.code); drawMap(); });
+    const bb = g.node().getBBox();
+    svg.attr('viewBox', `${bb.x - 4} ${bb.y - 4} ${bb.width + 8} ${bb.height + 8}`).style('max-height', '32rem');
+    const top = [...dist.values()].filter((r) => r[m.k] != null).sort((a, b) => b[m.k] - a[m.k]).slice(0, 3).map((r) => r.district);
+    leg.replaceChildren();
+    const a = document.createElement('span'); a.textContent = m.f(lo) + m.unit;
+    const rp = document.createElement('span'); rp.className = 'ramp'; rp.style.background = `linear-gradient(90deg, ${ramp(lo)}, ${ramp(hi)})`;
+    const b = document.createElement('span'); b.textContent = m.f(hi) + m.unit;
+    const t = document.createElement('span'); t.textContent = '· Highest: ' + top.join(', ');
+    leg.append(a, rp, b, t);
+  }
+
+  // ---------------- scatter
+  function drawScatter() {
+    const box = document.getElementById('scatter');
+    if (!ready('odisha_districts')) { const s = statusOf('odisha_districts'); if (s !== 'loading') fail(box, s); return; }
+    box.classList.remove('dash-skeleton'); box.replaceChildren();
+    const rows = ocmDistricts(dash.data('odisha_districts').data);
+    const W = Math.max(280, box.clientWidth), H = 288, m = { t: 24, r: 16, b: 36, l: 34 };
+    const x = d3.scaleLinear([0, Math.ceil(d3.max(rows, (r) => r.nfhs5_pct) / 5) * 5], [m.l, W - m.r]);
+    const y = d3.scaleLinear([0, Math.max(5, d3.max(rows, (r) => r.cases_2016_2021))], [H - m.b, m.t]).nice();
+    const svg = d3.select(box).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Scatter of NFHS-5 rate against recorded cases');
+    svg.append('g').selectAll('line').data(y.ticks(4)).join('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', y).attr('y2', y).attr('stroke', 'var(--cds-chart-grid)');
+    svg.append('g').attr('transform', `translate(0,${H - m.b})`).call(d3.axisBottom(x).ticks(Math.min(6, W / 70)).tickFormat((v) => v + '%')).attr('font-size', null).attr('font-family', null).call((g) => g.select('.domain').attr('stroke', 'var(--cds-chart-axis)')).call((g) => g.selectAll('.tick line').remove());
+    svg.append('g').attr('transform', `translate(${m.l},0)`).call(d3.axisLeft(y).ticks(4).tickFormat(d3.format('d'))).attr('font-size', null).attr('font-family', null).call((g) => g.select('.domain').remove()).call((g) => g.selectAll('.tick line').remove());
+    svg.append('rect').attr('x', x(25)).attr('y', y(3)).attr('width', Math.max(0, x.range()[1] - x(25))).attr('height', Math.max(0, y(0) - y(3))).attr('fill', 'var(--cds-chart-status-critical)').attr('opacity', 0.1);
+    const tip = tipIn(box);
+    svg.append('g').selectAll('circle').data(rows).join('circle')
+      .attr('cx', (r) => x(r.nfhs5_pct)).attr('cy', (r) => y(r.cases_2016_2021)).attr('r', 5)
+      .attr('fill', (r) => (r.nfhs5_pct >= 25 && r.cases_2016_2021 <= 3 ? 'var(--cds-chart-status-critical)' : dash.colors[0])).attr('fill-opacity', 0.85)
+      .on('mousemove', (ev, r) => tip.show(ev, [['t', r.district], [null, `NFHS-5 ${fmt1(r.nfhs5_pct)}%`], [null, `${fmtC(r.cases_2016_2021)} recorded cases, 2016–21`]]))
+      .on('mouseleave', () => tip.hide());
+    const lab = rows.slice().sort((a, b) => b.nfhs5_pct - a.nfhs5_pct).slice(0, 1).concat(rows.slice().sort((a, b) => b.cases_2016_2021 - a.cases_2016_2021).slice(0, 3));
+    svg.append('g').selectAll('text').data([...new Map(lab.map((r) => [r.code, r])).values()]).join('text').attr('class', 'lbl')
+      .attr('x', (r) => x(r.nfhs5_pct) + (x(r.nfhs5_pct) > W - 90 ? -8 : 8)).attr('y', (r) => y(r.cases_2016_2021) - 7)
+      .attr('text-anchor', (r) => (x(r.nfhs5_pct) > W - 90 ? 'end' : 'start')).text((r) => r.district);
+    svg.append('text').attr('x', W - m.r).attr('y', H - 4).attr('text-anchor', 'end').text('NFHS-5: women 20–24 married before 18');
+  }
+
+  // ---------------- bars (cases, rain, transition)
+  function bars(boxId, src, key, opt) {
+    const box = document.getElementById(boxId);
+    if (!ready(src)) { const s = statusOf(src); if (s !== 'loading') fail(box, s); return; }
+    box.classList.remove('dash-skeleton'); box.replaceChildren();
+    const rows = dash.data(src).data.map((r) => ({ year: Number(r.year), v: Number(r[key]) }));
+    const W = Math.max(280, box.clientWidth), H = 288, m = { t: 22, r: 8, b: 26, l: 8 };
+    const x = d3.scaleBand(rows.map((r) => r.year), [m.l, W - m.r]).padding(0.28);
+    const ext = opt.domain ? opt.domain(rows) : [0, d3.max(rows, (r) => r.v)];
+    const y = d3.scaleLinear(ext, [H - m.b, m.t]).nice();
+    const svg = d3.select(box).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', opt.aria);
+    const b0 = typeof opt.base === 'function' ? opt.base(rows) : (opt.base ?? 0);
+    const base = y(b0);
+    svg.append('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', base).attr('y2', base).attr('stroke', 'var(--cds-chart-axis)');
+    const tip = tipIn(box);
+    const bw = Math.min(32, x.bandwidth());
+    svg.append('g').selectAll('rect').data(rows).join('rect')
+      .attr('x', (r) => x(r.year) + (x.bandwidth() - bw) / 2).attr('width', bw)
+      .attr('y', (r) => Math.min(y(r.v), base)).attr('height', (r) => Math.max(1, Math.abs(y(r.v) - base))).attr('rx', 4)
+      .attr('fill', (r) => (opt.color ? opt.color(r) : dash.colors[0]))
+      .on('mousemove', (ev, r) => tip.show(ev, [['t', String(r.year)], [null, opt.tip(r.v)]])).on('mouseleave', () => tip.hide());
+    svg.append('g').selectAll('text.v').data(rows).join('text').attr('class', 'lbl')
+      .attr('x', (r) => x(r.year) + x.bandwidth() / 2).attr('y', (r) => (r.v >= b0 ? y(r.v) - 5 : y(r.v) + 13)).attr('text-anchor', 'middle').text((r) => opt.label(r.v));
+    const step = Math.ceil(rows.length / Math.max(1, Math.floor(W / 46)));
+    svg.append('g').selectAll('text.x').data(rows.filter((r, i) => i % step === 0)).join('text')
+      .attr('x', (r) => x(r.year) + x.bandwidth() / 2).attr('y', H - 6).attr('text-anchor', 'middle').text((r) => r.year);
+  }
+
+  function drawTable() {
+    const tb = document.querySelector('#dtable tbody');
+    if (!ready('odisha_districts')) { tb.replaceChildren(); return; }
+    const q = document.getElementById('search').value.trim().toLowerCase();
+    const rows = ocmDistricts(dash.data('odisha_districts').data).filter((r) => r.district.toLowerCase().includes(q));
+    rows.sort((a, b) => { const A = a[sortK], B = b[sortK]; const c = typeof A === 'string' ? A.localeCompare(B) : (A ?? -1e9) - (B ?? -1e9); return sortDir * c; });
+    document.querySelectorAll('#dtable th').forEach((th) => th.setAttribute('aria-sort', th.dataset.field === sortK ? (sortDir > 0 ? 'ascending' : 'descending') : 'none'));
+    tb.replaceChildren(...rows.map((r) => {
+      const tr = document.createElement('tr'); tr.dataset.key = r.district;
+      const cells = [r.district, fmt1(r.nfhs4_pct), fmt1(r.nfhs5_pct), (r.change_pts > 0 ? '+' : '') + fmt1(r.change_pts), r.teen_preg5_pct == null ? '' : fmt1(r.teen_preg5_pct), fmtC(r.cases_2016_2021), fmt1(r.g9_g10_dropoff_pct)];
+      cells.forEach((v, i) => { const td = document.createElement('td'); td.textContent = v; if ([1, 4, 6].includes(i)) td.className = 'ocm-hide-narrow'; if (i === 0 && r.nfhs5_pct >= 25 && r.cases_2016_2021 <= 3) td.classList.add('ocm-flag'); tr.append(td); });
+      return tr;
+    }));
+  }
+  let sortK = 'nfhs5_pct', sortDir = -1;
+  document.querySelectorAll('#dtable th button').forEach((b) => b.addEventListener('click', () => { const k = b.dataset.k; if (sortK === k) sortDir = -sortDir; else { sortK = k; sortDir = k === 'district' ? 1 : -1; } drawTable(); }));
+  document.getElementById('search').addEventListener('input', drawTable);
+
+  function drawKpis() {
+    const k = dash.data('kpis');
+    const els = document.querySelectorAll('[data-source="kpis"]');
+    if (k.status !== 'ok') { if (k.status !== 'loading') els.forEach((e) => { e.classList.remove('dash-skeleton'); e.textContent = '—'; }); return; }
+    const r = k.data[0];
+    els.forEach((e) => e.classList.remove('dash-skeleton'));
+    const set = (f, v) => { const e = document.querySelector(`[data-source="kpis"][data-field="${f}"]`); if (e) e.textContent = v; };
+    set('avg_nfhs5', fmt1(r.avg_nfhs5) + '%');
+    set('change_avg', (r.change_avg > 0 ? '+' : '') + fmt1(r.change_avg));
+    set('max_nfhs5', fmt1(r.max_nfhs5) + '%');
+    set('max_district', r.max_district);
+    set('cases_total', fmtC(r.cases_total));
+    set('gap_districts', String(r.gap_districts));
+    document.getElementById('takeaway').textContent =
+      `On average ${fmt1(r.avg_nfhs5)}% of women aged 20–24 in Odisha's districts were married before 18 (NFHS-5), yet police recorded only ${fmtC(r.cases_total)} child-marriage cases across the state in 2016–2021. ${r.gap_districts} districts combine high survey rates with 3 or fewer recorded cases.`;
+  }
+
+  dash.onData(() => {
+    drawKpis();
+    drawMap();
+    drawScatter();
+    bars('cases', 'pcma_by_year', 'odisha', { aria: 'Recorded cases per year in Odisha', tip: (v) => `${fmtC(v)} cases`, label: fmtC });
+    bars('rain', 'rain_state', 'rain_shock_z', {
+      aria: 'Rainfall z-score by year', domain: (r) => { const a = d3.max(r, (d) => Math.abs(d.v)) || 1; return [-a, a]; },
+      color: (r) => (r.v < 0 ? 'var(--cds-chart-status-critical)' : dash.colors[0]), tip: (v) => `z = ${d3.format('+.2f')(v)}`, label: d3.format('+.1f'),
+    });
+    bars('drop', 'transition_state', 'per100', {
+      aria: 'Girls in Class 10 per 100 in Class 9 the year before', domain: (r) => [0, Math.max(100, d3.max(r, (d) => d.v))],
+      tip: (v) => `${fmt1(v)} per 100`, label: d3.format('.0f'),
+    });
+    drawTable();
+  });
+  const named = document.getElementById(location.hash.slice(1)); if (named) named.scrollIntoView();
+})();
+</script>

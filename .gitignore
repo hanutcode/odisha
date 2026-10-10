@@ -1,0 +1,31 @@
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.DS_Store
+
+# Data: raw and derived data are rebuilt by `make`; never commit them
+data/raw/*
+data/interim/*
+data/processed/*
+data/unsealed/
+!data/**/.gitkeep
+
+# The sealed NFHS-6 file and its key must never be in the repo
+data/sealed/*
+*.key
+
+outputs/*
+!outputs/.gitkeep
+dist/
+data/geo/india_districts_2011.geojson
+
+# Web workspace (local state)
+web/workspace.sqlite3
+web/.secret_key
+web/staticfiles/
+data/manual/_previous/
+web/.initial_passwords.json
+
+# Private production credentials
+.deploy-logins.txt

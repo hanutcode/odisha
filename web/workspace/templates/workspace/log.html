@@ -1,0 +1,32 @@
+{% extends "workspace/base.html" %}
+{% block title %}Contribution log{% endblock %}
+{% block content %}
+<div class="head">
+  <div>
+    <h1>Contribution log</h1>
+    <p class="muted">The dated lab notebook the ISEF forms need. Actions in the workspace are added automatically; add everything else by hand.</p>
+  </div>
+  <form method="post" action="{% url 'log_export' %}">{% csrf_token %}<button class="btn">Export to docs/contribution_log.md</button></form>
+</div>
+
+<section class="card" style="margin-bottom:14px">
+  <form method="post" class="row" style="align-items:flex-end">
+    {% csrf_token %}
+    <label class="f" for="date">Date<input type="date" name="date" id="date" value="{{ today|date:'Y-m-d' }}"></label>
+    <label class="f" for="text" style="flex:1;min-width:240px">What you did<input type="text" name="text" id="text" placeholder="e.g. Wrote hypotheses H1–H3; read 9 papers" required></label>
+    <button class="btn primary" type="submit">Add entry</button>
+  </form>
+</section>
+
+<div class="row" style="margin-bottom:10px">
+  <a class="btn {% if show == 'all' %}primary{% endif %}" href="?show=all">All entries</a>
+  <a class="btn {% if show == 'manual' %}primary{% endif %}" href="?show=manual">Written by hand</a>
+</div>
+{% if entries %}
+<div class="tbl-wrap"><table>
+  <tr><th>Date</th><th>Person</th><th>Role</th><th>What was done</th><th></th></tr>
+  {% for e in entries %}<tr><td style="white-space:nowrap">{{ e.date|date:"D j M" }}</td><td>{{ e.person }}</td><td>{{ e.role }}</td><td>{{ e.text }}</td>
+    <td>{% if e.automatic %}<span class="pill plain">auto</span>{% endif %}</td></tr>{% endfor %}
+</table></div>
+{% else %}<div class="card muted">No entries yet.</div>{% endif %}
+{% endblock %}

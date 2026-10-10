@@ -1,0 +1,76 @@
+# Data sources for the IRIS 2026 hidden-child-marriage project.
+# `hcm download` fetches every entry that has a `url`. Entries marked
+# `manual: true` need a login or a portal click-through: download them by
+# hand into the `dest` path. Verify each URL on Day 1 (3 Oct) and record
+# the result in docs/data_audit.md.
+
+downloads:
+  odisha_districts_geojson:
+    url: https://raw.githubusercontent.com/udit-001/india-maps-data/main/geojson/states/odisha.geojson
+    dest: data/geo/odisha_districts_2011.geojson
+    note: 30 Odisha districts with Census 2011 codes (dt_code). Bundled in repo.
+
+  india_districts_2011_geojson:
+    url: https://raw.githubusercontent.com/datameet/maps/master/website/docs/data/geojson/dists11.geojson
+    dest: data/geo/india_districts_2011.geojson
+    note: 641 Census 2011 district polygons (DataMeet). Base geography for covariates.
+
+  chirps_annual:
+    url_template: https://data.chc.ucsb.edu/products/CHIRPS-2.0/global_annual/tifs/chirps-v2.0.{year}.tif
+    years: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+    dest_template: data/raw/chirps/chirps-v2.0.{year}.tif
+    note: Annual rainfall rasters (~30 MB each). Verify URL on Day 1.
+
+  nfhs_district_factsheets:
+    manual: true
+    dest: data/raw/nfhs/round{round}/          # one PDF per district
+    note: >
+      District fact sheets from https://www.nfhsiips.in/nfhsuser/publication.php
+      (rchiips.org has moved there). Choose Round, Type "District Fact Sheet", State. A free guest login is needed.
+      NFHS-6 PDFs go to data/raw/nfhs/round6/ like the other rounds (the seal was removed 10 Oct 2026).
+
+  nfhs5_unit_level:
+    manual: true
+    dest: data/raw/dhs/
+    note: DHS Program request (dhsprogram.com). Approval usually takes days; request on Day 1.
+
+  ncrb_pcma_district:
+    manual: true
+    dest: data/raw/ncrb/
+    note: >
+      Crime in India, Prohibition of Child Marriage Act cases. District-wise
+      SLL tables (CSV/XLSX on data.gov.in or ncrb.gov.in). One file per year.
+
+  udise_enrolment:
+    manual: true
+    dest: data/raw/udise/
+    note: UDISE+ district enrolment by grade and gender, 2015-16 to 2024-25. One file per year.
+
+  odisha_wcd_reports:
+    manual: true
+    dest: data/manual/odisha_reports.csv
+    note: Fill from Odisha WCD reports and Assembly answers using the template.
+
+  viirs_annual:
+    manual: true
+    dest: data/raw/viirs/
+    note: EOG annual VNL v2 (login required). One GeoTIFF per year, named viirs_{year}.tif.
+
+  shrug_census_covariates:
+    manual: true
+    dest: data/raw/shrug/
+    note: SHRUG district-level Census 2011 PCA (poverty, SC/ST share, literacy).
+
+  detection_capacity:
+    manual: true
+    dest: data/manual/detection_capacity.csv
+    note: Police per capita (BPR&D), Childline 1098 coverage, CMPO counts. Fill the template.
+
+# NFHS survey rounds and the year each round represents in the panel.
+nfhs_rounds:
+  4: {fieldwork: "2015-16", panel_year: 2016}
+  5: {fieldwork: "2019-21", panel_year: 2020}
+  6: {fieldwork: "2023-24", panel_year: 2024}   # seal lifted 10 Oct 2026 (workflow removed)
+
+# Out-of-time design: the model may only see data up to this year.
+training_cutoff_year: 2021

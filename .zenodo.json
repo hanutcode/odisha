@@ -1,0 +1,22 @@
+{
+  "title": "Reports Measure the Watchers, Not the Harm: code and data",
+  "upload_type": "software",
+  "description": "Data pipeline, district crosswalk (785 LGD districts to 613 harmonised units), Odisha district panel 2015-2024 (NFHS-4/5, NCRB, UDISE+, CHIRPS) and offline fair map for estimating hidden child-marriage rates from biased official records. The model code in model/ is the student's. IRIS National Fair 2026 entry.",
+  "creators": [
+    {
+      "name": "Lal, Hanut"
+    }
+  ],
+  "keywords": [
+    "child marriage",
+    "NFHS",
+    "NCRB",
+    "detection bias",
+    "Bayesian",
+    "Odisha",
+    "India"
+  ],
+  "license": "MIT",
+  "access_right": "open",
+  "notes": "Add the paper/pre-registration link before uploading. The NFHS-6 seal was removed on 10 Oct 2026; see docs/INTEGRITY.md."
+}

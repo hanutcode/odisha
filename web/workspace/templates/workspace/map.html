@@ -1,0 +1,65 @@
+{% extends "workspace/base.html" %}
+{% block title %}Odisha map{% endblock %}
+{% block content %}
+<div class="head">
+  <div>
+    <h1>Odisha map</h1>
+    <p class="muted">The fair demo. Visitors see it at <a href="{% url 'map_public' %}" target="_blank">/fair/map/</a> (no sign-in); <a href="{% url 'insights_public' %}" target="_blank">/fair/</a> opens the dashboard. Download the offline copy for a USB stick.</p>
+  </div>
+  <div class="row">
+    {% if o.present and not o.error %}<a class="btn" href="{% url 'map_download' %}">Download offline HTML</a>{% endif %}
+  </div>
+</div>
+
+{% if o.error %}<div class="banner mock">The current outputs break the contract: {{ o.error }}</div>
+{% elif o.mock_hidden %}<div class="banner mock">MOCK outputs are on disk but hidden on this server. The map shows the published NFHS survey figures until real model outputs are uploaded.</div>
+{% elif o.mock %}<div class="banner mock">MOCK DATA: random numbers for building the tool. Never use them as results.</div>{% endif %}
+
+<div class="grid g2" style="margin-bottom:14px">
+  <section class="card">
+    <h2>Model outputs</h2>
+    {% if o.present and not o.error %}
+      <p>{{ o.districts }} districts · {{ o.flagged }} flagged · run <span class="mono">{{ o.run }}</span></p>
+    {% else %}<p class="muted">No valid outputs yet.</p>{% endif %}
+    {% if is_student %}
+      <form method="post" action="{% url 'outputs_upload' %}" enctype="multipart/form-data" class="stack">
+        {% csrf_token %}
+        <label class="f" for="estimates">district_estimates.csv<input type="file" name="estimates" id="estimates" accept=".csv" required></label>
+        <label class="f" for="reasons">reason_codes.csv<input type="file" name="reasons" id="reasons" accept=".csv" required></label>
+        <button class="btn primary" type="submit">Check and publish to the map</button>
+      </form>
+      <p class="small muted" style="margin-top:8px">Files are checked against the contract in src/hcm/contract.py before anything is replaced.</p>
+    {% endif %}
+    {% if is_engineer or is_student %}
+      {% if allow_mock %}<form method="post" action="{% url 'outputs_mock' %}" style="margin-top:10px">{% csrf_token %}
+        <button class="btn">Write mock outputs for testing</button></form>{% endif %}
+    {% endif %}
+  </section>
+
+  <section class="card src" id="reasons">
+    <h2>Reason wording {% if o.odia_unchecked %}<span class="pill warn">{{ o.odia_unchecked }} Odia unchecked</span>{% elif reasons %}<span class="pill ok">Odia checked</span>{% endif %}</h2>
+    {% if reasons %}
+      <form method="post" action="{% url 'reasons_save' %}" class="stack">
+        {% csrf_token %}
+        {% for r in reasons %}
+          <fieldset class="stack" style="border:1px solid var(--line);border-radius:10px;padding:10px">
+            <legend class="mono small">{{ r.reason_code }}</legend>
+            <label class="f" for="text_en_{{ forloop.counter0 }}">English<textarea name="text_en_{{ forloop.counter0 }}" id="text_en_{{ forloop.counter0 }}" {% if not is_student %}readonly{% endif %}>{{ r.text_en }}</textarea></label>
+            <label class="f" for="text_hi_{{ forloop.counter0 }}">Hindi<textarea name="text_hi_{{ forloop.counter0 }}" id="text_hi_{{ forloop.counter0 }}" {% if not is_student %}readonly{% endif %}>{{ r.text_hi }}</textarea></label>
+            <label class="f" for="text_or_{{ forloop.counter0 }}">Odia<textarea name="text_or_{{ forloop.counter0 }}" id="text_or_{{ forloop.counter0 }}" {% if not is_student and not is_mentor %}readonly{% endif %}>{{ r.text_or }}</textarea></label>
+            <label class="row small" for="odia_{{ forloop.counter0 }}"><input type="checkbox" name="odia_{{ forloop.counter0 }}" id="odia_{{ forloop.counter0 }}" {% if r.odia_checked == True or r.odia_checked == "True" %}checked{% endif %} {% if not is_student and not is_mentor %}disabled{% endif %}> Odia checked by a native speaker</label>
+          </fieldset>
+        {% endfor %}
+        {% if is_student or is_mentor %}<button class="btn primary" type="submit">Save wording and rebuild map</button>{% endif %}
+      </form>
+    {% else %}<p class="muted">Appears once outputs exist.</p>{% endif %}
+  </section>
+</div>
+
+{% if survey %}
+  <div class="banner note">No model outputs yet, so the map shows published NFHS survey figures. It switches to the model map once model outputs are uploaded.</div>
+  <iframe class="map" src="{% url 'map_embed' %}" title="Odisha district NFHS map"></iframe>
+{% elif o.present and not o.error %}
+  <iframe class="map" src="{% url 'map_embed' %}" title="Odisha district risk map"></iframe>
+{% endif %}
+{% endblock %}

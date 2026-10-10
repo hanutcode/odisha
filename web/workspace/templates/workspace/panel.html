@@ -1,0 +1,38 @@
+{% extends "workspace/base.html" %}
+{% block title %}District panel{% endblock %}
+{% block content %}
+<div class="head">
+  <div>
+    <h1>District panel</h1>
+    <p class="muted">One row per harmonised district unit per year, 2015–2024. NFHS-6 is never in here before the freeze.</p>
+  </div>
+  {% if built %}<a class="btn" href="{% url 'panel_csv' %}">Download CSV</a>{% endif %}
+</div>
+{% if not built %}
+  <div class="card muted">The panel hasn't been built yet. Upload data, then run <b>Build panel</b> on the <a href="{% url 'pipeline' %}">Pipeline</a> page.</div>
+{% else %}
+<section class="card" style="margin-bottom:14px">
+  <h2>Coverage: districts with a value, by year</h2>
+  <p class="small muted">{{ n_units }} units. Years after {{ cutoff }} are outside the training window.</p>
+  <div class="tbl-wrap"><table class="heat">
+    <tr><th>Variable</th>{% for y in cov_years %}<th class="num">{{ y }}{% if y > cutoff %}*{% endif %}</th>{% endfor %}</tr>
+    {% for v, counts in cov_rows %}<tr><td class="mono">{{ v }}</td>{% for c in counts %}<td class="num">{% if c %}{{ c }}{% else %}<span class="muted">·</span>{% endif %}</td>{% endfor %}</tr>{% endfor %}
+  </table></div>
+</section>
+
+<section class="card">
+  <form method="get" class="row" style="margin-bottom:12px">
+    <label class="f" for="var">Variable<select name="var" id="var">{% for v in variables %}<option {% if v == var %}selected{% endif %}>{{ v }}</option>{% endfor %}</select></label>
+    <label class="f" for="year">Year<select name="year" id="year">{% for y in years %}<option {% if y == year %}selected{% endif %}>{{ y }}</option>{% endfor %}</select></label>
+    <label class="f" for="state">State<select name="state" id="state"><option value="">All states</option>{% for s in states %}<option {% if s == state %}selected{% endif %}>{{ s }}</option>{% endfor %}</select></label>
+    <button class="btn primary" type="submit" style="align-self:flex-end">Show</button>
+  </form>
+  <p class="small">{% if training %}<span class="pill info">Training window</span>{% else %}<span class="pill warn">After the {{ cutoff }} cutoff: prediction years only</span>{% endif %}</p>
+  <div class="tbl-wrap"><table>
+    <tr><th>Unit</th><th>District</th><th>State</th><th class="num">{{ var }}</th></tr>
+    {% for r in table %}<tr><td class="mono">{{ r.unit_id }}</td><td>{{ r.unit_name }}</td><td>{{ r.state }}</td>
+      <td class="num">{% if r.value is not None %}{{ r.value|floatformat:2 }}{% else %}<span class="muted">—</span>{% endif %}</td></tr>{% endfor %}
+  </table></div>
+</section>
+{% endif %}
+{% endblock %}

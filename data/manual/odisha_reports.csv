@@ -1,0 +1,4 @@
+# Reporting channel 3 (Odisha only). Fill from Odisha WCD reports and Assembly answers.
+# variable: odisha_marriages_prevented | odisha_villages_declared_free | odisha_cmpo_cases
+# source_ref: document title + page, or Assembly question number and date.
+state,district,year,variable,value,source_ref

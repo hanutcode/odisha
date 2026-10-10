@@ -1,0 +1,40 @@
+{% extends "workspace/base.html" %}
+{% block title %}Pipeline{% endblock %}
+{% block content %}
+<div class="head">
+  <div>
+    <h1>Pipeline</h1>
+    <p class="muted">Each button runs the same step as the command line. Order: extract → build panel (the crosswalk is rebuilt with it) → review names.</p>
+  </div>
+</div>
+<div class="card" style="margin-bottom:14px">
+  <div class="tbl-wrap"><table>
+    <tr><th>Step</th><th>What it does</th><th></th></tr>
+    <tr><td><b>Extract raw data</b></td><td>Reads NFHS-4/5 fact sheets, NCRB, UDISE+, Odisha reports and detection capacity into tidy tables. NFHS-6 fact sheets load the same way.</td>
+      <td>{% include "workspace/_runbtn.html" with step="extract" %}</td></tr>
+    <tr><td><b>Extract rainfall and night lights</b></td><td>District averages from CHIRPS and VIIRS rasters, plus the rainfall-shock score. Slow: a minute or more per year.</td>
+      <td>{% include "workspace/_runbtn.html" with step="extract_rasters" %}</td></tr>
+    <tr><td><b>Build crosswalk</b></td><td>Harmonised district units from the LGD export and splits. Lists problems for the Crosswalk review page.</td>
+      <td>{% include "workspace/_runbtn.html" with step="crosswalk" %}</td></tr>
+    <tr><td><b>Build panel</b></td><td>Rebuilds the crosswalk, matches every district name and writes the 2015–2024 panel. Refuses to run if NFHS-6 leaks in.</td>
+      <td>{% include "workspace/_runbtn.html" with step="panel" %}</td></tr>
+    <tr><td><b>Rebuild map</b></td><td>Regenerates the Odisha map from the current model outputs.</td>
+      <td>{% include "workspace/_runbtn.html" with step="demo" %}</td></tr>
+  </table></div>
+  {% if not is_engineer and not is_student %}<p class="small muted" style="margin:10px 0 0">Only the Engineer role can run steps.</p>{% endif %}
+</div>
+
+<div class="card">
+  <h2>Run history</h2>
+  {% if runs %}
+  <div class="tbl-wrap"><table>
+    <tr><th>When</th><th>Step</th><th>By</th><th class="num">Seconds</th><th>Result</th></tr>
+    {% for r in runs %}
+      <tr><td>{{ r.started|date:"j M H:i:s" }}</td><td><a href="{% url 'pipeline_detail' r.pk %}">{{ r.get_step_display }}</a></td>
+        <td>{{ r.user.username }}</td><td class="num">{{ r.seconds|floatformat:1 }}</td>
+        <td>{% if r.ok %}<span class="pill ok">OK</span>{% else %}<span class="pill bad">Failed</span>{% endif %}</td></tr>
+    {% endfor %}
+  </table></div>
+  {% else %}<p class="muted">No runs yet.</p>{% endif %}
+</div>
+{% endblock %}

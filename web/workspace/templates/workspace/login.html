@@ -1,0 +1,48 @@
+{% load static %}<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in · IRIS Workspace</title>
+<link rel="stylesheet" href="{% static 'workspace/app.css' %}">
+</head>
+<body>
+<div class="login" style="max-width:520px">
+  <div class="card stack">
+    <div>
+      <h1>IRIS 2026 Workspace</h1>
+      <p class="muted">Hidden child marriages — team sign-in</p>
+    </div>
+    {% if form.errors %}<div class="msg error">Username or password is wrong. Try again.</div>{% endif %}
+    <form method="post" class="stack">
+      {% csrf_token %}
+      <label class="f" for="id_username">Username<input type="text" name="username" id="id_username" autocomplete="username" required autofocus></label>
+      <label class="f" for="id_password">Password<input type="password" name="password" id="id_password" autocomplete="current-password" required></label>
+      <input type="hidden" name="next" value="{{ next }}">
+      <button class="btn primary" type="submit">Sign in</button>
+    </form>
+    {% if demo_logins %}
+    <section class="stack" aria-labelledby="logins-h" style="gap:8px">
+      <h2 id="logins-h" style="font-size:.95rem;margin:0">Team logins <span class="pill warn">this computer only</span></h2>
+      <div class="tbl-wrap"><table>
+        <tr><th>Username</th><th>Password</th><th>Role</th><th></th></tr>
+        {% for l in demo_logins %}
+        <tr><td class="mono">{{ l.username }}</td><td class="mono">{{ l.password }}</td><td>{{ l.role }}</td>
+          <td><button type="button" class="btn" style="min-height:28px;padding:2px 10px" data-u="{{ l.username }}" data-p="{{ l.password }}">Use</button></td></tr>
+        {% endfor %}
+      </table></div>
+      <p class="small muted" style="margin:0">Starting passwords. If someone has changed theirs, it no longer works here. Delete <span class="mono">web/.initial_passwords.json</span> to hide this list.</p>
+    </section>
+    <script>
+      document.querySelectorAll('button[data-u]').forEach(b => b.addEventListener('click', () => {
+        document.getElementById('id_username').value = b.dataset.u;
+        document.getElementById('id_password').value = b.dataset.p;
+        document.getElementById('id_password').focus();
+      }));
+    </script>
+    {% endif %}
+    <p class="small muted">Visitors at the fair: the dashboard is at <a href="{% url 'insights_public' %}">/fair/</a> and the map at <a href="{% url 'map_public' %}">/fair/map/</a>, no sign-in needed.</p>
+  </div>
+</div>
+</body>
+</html>

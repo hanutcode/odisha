@@ -1,0 +1,43 @@
+{% extends "workspace/base.html" %}
+{% block title %}Data sources{% endblock %}
+{% block content %}
+<div class="head">
+  <div>
+    <h1>Data sources</h1>
+    <p class="muted">Upload each source here. Engineers can upload; everyone can see what is in place. Record checks in docs/data_audit.md.</p>
+  </div>
+</div>
+{% if not is_engineer %}<div class="banner note">You can view the files. Only the Engineer role can upload.</div>{% endif %}
+
+<div class="grid g2">
+{% for r in rows %}
+  <section class="card src" id="{{ r.t.key }}">
+    <div class="row" style="justify-content:space-between">
+      <h2 style="margin:0">{{ r.t.label }}</h2>
+      {% if r.files and r.files.0.rows == 0 %}<span class="pill plain">Empty template</span>
+      {% elif r.files %}<span class="pill ok">{{ r.files|length }} file{{ r.files|length|pluralize }}</span>
+      {% else %}<span class="pill plain">Missing</span>{% endif %}
+    </div>
+    <p class="small muted" style="margin-top:6px">{{ r.t.help }} <span class="mono">{{ r.t.folder }}/</span></p>
+
+    {% if is_engineer %}
+        <form method="post" action="{% url 'upload' r.t.key %}" enctype="multipart/form-data" class="row">
+          {% csrf_token %}
+          <input type="file" name="files" id="f_{{ r.t.key }}" accept="{{ r.t.exts|join:',' }}" {% if r.t.multiple %}multiple{% endif %} required>
+          <button class="btn primary" type="submit">{% if r.t.replace_name %}Replace{% else %}Upload{% endif %}</button>
+        </form>
+    {% endif %}
+
+    {% if r.files %}
+      <ul class="files">
+        {% for f in r.files|slice:":8" %}
+          <li><span class="mono">{{ f.name }}</span><span class="muted">{% if f.rows is not None %}{{ f.rows }} rows · {% endif %}{{ f.kb|floatformat:0 }} KB · {{ f.modified|date:"j M H:i" }}</span></li>
+        {% endfor %}
+        {% if r.files|length > 8 %}<li class="muted">and {{ r.files|length|add:"-8" }} more</li>{% endif %}
+      </ul>
+      {% if r.t.replace_name and r.t.exts.0 == ".csv" %}<a class="small" href="{% url 'manual_view' r.t.key %}">View contents</a>{% endif %}
+    {% endif %}
+  </section>
+{% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% load static %}<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}IRIS Workspace{% endblock %} · Hidden Child Marriages</title>
+<link rel="stylesheet" href="{% static 'workspace/app.css' %}">
+</head>
+<body>
+<div class="shell">
+  <nav class="rail" aria-label="Main">
+    <div class="brand">IRIS 2026 Workspace<small>Reports Measure the Watchers</small></div>
+    <a href="{% url 'dashboard' %}" class="{% if nav == 'dashboard' %}on{% endif %}">Dashboard</a>
+    <a href="{% url 'data' %}" class="{% if nav == 'data' %}on{% endif %}">Data sources</a>
+    <a href="{% url 'pipeline' %}" class="{% if nav == 'pipeline' %}on{% endif %}">Pipeline</a>
+    <a href="{% url 'review' %}" class="{% if nav == 'review' %}on{% endif %}">Crosswalk review</a>
+    <a href="{% url 'panel' %}" class="{% if nav == 'panel' %}on{% endif %}">District panel</a>
+    <a href="{% url 'insights' %}" class="{% if nav == 'insights' %}on{% endif %}">Insights</a>
+    <a href="{% url 'map' %}" class="{% if nav == 'map' %}on{% endif %}">Odisha map</a>
+    <a href="{% url 'log' %}" class="{% if nav == 'log' %}on{% endif %}">Contribution log</a>
+    <div class="who">
+      <b>{{ user.get_full_name|default:user.username }}</b>
+      <span class="muted">{{ role_label }}</span>
+      <div class="who-links">
+        <a href="{% url 'password_change' %}">Change password</a>
+        <form method="post" action="{% url 'logout' %}">{% csrf_token %}<button type="submit">Sign out</button></form>
+      </div>
+    </div>
+  </nav>
+  <main class="main">
+    {% if messages %}<div class="msgs">{% for m in messages %}<div class="msg {{ m.tags }}">{{ m }}</div>{% endfor %}</div>{% endif %}
+    {% block content %}{% endblock %}
+  </main>
+</div>
+</body>
+</html>

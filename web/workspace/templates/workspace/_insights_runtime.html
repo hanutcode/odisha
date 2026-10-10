@@ -1,0 +1,22 @@
+{% load static %}
+{{ dash_data|json_script:"insights-data" }}
+<script src="{% static 'workspace/vendor/d3.v7.9.0.min.js' %}"></script>
+<script>
+/* A small stand-in for the dashboard runtime the page code expects:
+   dash.data(id), dash.calc(id, {...}), dash.onData(fn) and dash.colors. All data is
+   embedded in the page from the district panel, so it works offline. */
+window.dash = (() => {
+  const raw = JSON.parse(document.getElementById('insights-data').textContent);
+  const calcs = {}, listeners = [];
+  const data = (id) => (id in raw ? { status: 'ok', data: raw[id] }
+                       : id in calcs ? { status: 'ok', data: calcs[id] } : { status: 'missing', data: [] });
+  let t = null;
+  window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(() => listeners.forEach((f) => f()), 150); });
+  return {
+    data,
+    calc(id, o) { calcs[id] = o.fn(...o.inputs.map((i) => data(i).data)); },
+    onData(fn) { listeners.push(fn); fn(); },
+    colors: ['var(--ocm-series-1)', 'var(--ocm-series-2)'],
+  };
+})();
+</script>

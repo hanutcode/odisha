@@ -1,0 +1,191 @@
+# One row per (new district, parent 2011 district). A district carved from two parents gets two rows.
+# pop_share = share of the NEW district's population that came from this parent (rows for one child sum to 1).
+# Leave pop_share blank if unknown; the build assumes equal shares and lists it as a problem.
+# source_ref = gazette notification or LGD modification record.
+# Filled 2026-10-09 from github.com/vijayshree-jayaraman/District-mapping-2001-2011-with-LGD-codes.
+# Single-parent rows follow that file's mapping to the main 2011 parent (pop_share 1). Multi-parent rows
+# (22 districts) list every parent named in its comment; shares unknown. Delhi's 2012 redraw links all nine 2011 districts.
+child_lgd_code,parent_census2011_code,pop_share,source_ref
+745,544,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+744,544,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+753,554,,Multiple parents; from concordance comment: formed on April 4; 2022 ;combining parts of the erstwhile Chittoor and YSR districts
+753,551,,Multiple parents; from concordance comment: formed on April 4; 2022 ;combining parts of the erstwhile Chittoor and YSR districts
+750,548,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+747,545,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+748,546,,Multiple parents; from concordance comment: Eluru district is carved out of the part of old West Godavari District along with 8 mandals from old Krishna District total with 28 mandals
+748,547,,Multiple parents; from concordance comment: Eluru district is carved out of the part of old West Godavari District along with 8 mandals from old Krishna District total with 28 mandals
+746,545,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+755,552,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+749,547,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+751,548,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+743,543,,Multiple parents; from concordance comment: The district was formed by merging parts of the neighboring Vizianagaram and Srikakulam districts
+743,542,,Multiple parents; from concordance comment: The district was formed by merging parts of the neighboring Vizianagaram and Srikakulam districts
+754,553,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+752,554,,Multiple parents; from concordance comment: The new district was created from parts of the former Chittoor and Nellore districts:
+752,550,,Multiple parents; from concordance comment: The new district was created from parts of the former Chittoor and Nellore districts:
+718,255,,Multiple parents; from concordance comment: On 4 December 2017; a new district called Kamle district was created from Lower Subansiri District and Upper Subansiri District
+718,249,,Multiple parents; from concordance comment: On 4 December 2017; a new district called Kamle district was created from Lower Subansiri District and Upper Subansiri District
+677,256,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+724,250,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+666,254,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+719,250,,Multiple parents; from concordance comment: Its territory was carved out of West Siang and East Siang districts.
+719,251,,Multiple parents; from concordance comment: Its territory was carved out of West Siang and East Siang districts.
+678,259,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+723,247,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+725,250,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+679,250,,Multiple parents; from concordance comment: This district was created in 2015 by splitting the West Siang and East Siang districts
+679,251,,Multiple parents; from concordance comment: This district was created in 2015 by splitting the West Siang and East Siang districts
+739,303,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+705,306,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+708,311,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+709,305,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+706,312,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+707,301,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+756,324,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+710,314,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+646,409,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+644,410,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+649,401,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+650,409,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+645,410,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+734,406,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+759,408,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+643,414,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+760,400,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+761,408,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+647,406,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+762,405,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+763,403,,Multiple parents; from concordance comment: It was created by splitting the districts of Raigarh and Balodabazar-Bhatapara.
+763,410,,Multiple parents; from concordance comment: It was created by splitting the districts of Raigarh and Balodabazar-Bhatapara.
+642,416,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+648,401,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+671,90,,Multiple parents; from concordance comment: Two new districts  Southeast and Shahdara  were carved out and notified from the nine districts
+671,91,,Multiple parents; from concordance comment: Two new districts  Southeast and Shahdara  were carved out and notified from the nine districts
+671,92,,Multiple parents; from concordance comment: Two new districts  Southeast and Shahdara  were carved out and notified from the nine districts
+671,93,,Multiple parents; from concordance comment: Two new districts  Southeast and Shahdara  were carved out and notified from the nine districts
+671,94,,Multiple parents; from concordance comment: Two new districts  Southeast and Shahdara  were carved out and notified from the nine districts
+671,95,,Multiple parents; from concordance comment: Two new districts  Southeast and Shahdara  were carved out and notified from the nine districts
+671,96,,Multiple parents; from concordance comment: Two new districts  Southeast and Shahdara  were carved out and notified from the nine districts
+671,97,,Multiple parents; from concordance comment: Two new districts  Southeast and Shahdara  were carved out and notified from the nine districts
+671,98,,Multiple parents; from concordance comment: Two new districts  Southeast and Shahdara  were carved out and notified from the nine districts
+670,90,,Multiple parents; from concordance comment: Two new districts  Southeast and Shahdara  were carved out and notified from the nine districts
+670,91,,Multiple parents; from concordance comment: Two new districts  Southeast and Shahdara  were carved out and notified from the nine districts
+670,92,,Multiple parents; from concordance comment: Two new districts  Southeast and Shahdara  were carved out and notified from the nine districts
+670,93,,Multiple parents; from concordance comment: Two new districts  Southeast and Shahdara  were carved out and notified from the nine districts
+670,94,,Multiple parents; from concordance comment: Two new districts  Southeast and Shahdara  were carved out and notified from the nine districts
+670,95,,Multiple parents; from concordance comment: Two new districts  Southeast and Shahdara  were carved out and notified from the nine districts
+670,96,,Multiple parents; from concordance comment: Two new districts  Southeast and Shahdara  were carved out and notified from the nine districts
+670,97,,Multiple parents; from concordance comment: Two new districts  Southeast and Shahdara  were carved out and notified from the nine districts
+670,98,,Multiple parents; from concordance comment: Two new districts  Southeast and Shahdara  were carved out and notified from the nine districts
+672,472,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+676,481,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+668,486,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+674,477,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+675,479,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+669,484,,Multiple parents; from concordance comment: It was carved out of the Panchmahal and Kheda districts;
+669,483,,Multiple parents; from concordance comment: It was carved out of the Panchmahal and Kheda districts;
+673,476,,Multiple parents; from concordance comment: The district was created from parts of the Rajkot; Surendranagar; and Jamnagar districts.
+673,475,,Multiple parents; from concordance comment: The district was created from parts of the Rajkot; Surendranagar; and Jamnagar districts.
+673,477,,Multiple parents; from concordance comment: The district was created from parts of the Rajkot; Surendranagar; and Jamnagar districts.
+701,81,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+738,565,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+667,436,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+784,429,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+766,430,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+722,424,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+785,455,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+665,517,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+713,278,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+711,276,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+717,279,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+712,272,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+714,272,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+715,274,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+716,280,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+740,296,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+657,299,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+656,294,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+663,293,,Multiple parents; from concordance comment: The SWGH district was carved out of the West Garo Hills and North Garo Hills districts.
+663,294,,Multiple parents; from concordance comment: The SWGH district was carved out of the West Garo Hills and North Garo Hills districts.
+658,296,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+726,286,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+728,284,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+727,283,,Multiple parents; from concordance comment: The Saitual district in Mizoram; India was formed from the existing administrative districts of Aizawl and Champhai
+727,284,,Multiple parents; from concordance comment: The Saitual district in Mizoram; India was formed from the existing administrative districts of Aizawl and Champhai
+758,265,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+764,265,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+736,267,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+765,267,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+757,270,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+651,43,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+737,53,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+662,35,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+776,99,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+775,115,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+774,119,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+767,105,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+768,112,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+769,110,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+771,108,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+783,110,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+778,113,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+781,119,,Multiple parents; from concordance comment: Kekri is a new district in Rajasthan that was formed from parts of the Ajmer and Tonk districts
+781,120,,Multiple parents; from concordance comment: Kekri is a new district in Rajasthan that was formed from parts of the Ajmer and Tonk districts
+770,104,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+782,110,,Multiple parents; from concordance comment: Kotputli-Behror district was formed by combining parts of the Jaipur and Alwar districts in Rajasthan; India.
+782,104,,Multiple parents; from concordance comment: Kotputli-Behror district was formed by combining parts of the Jaipur and Alwar districts in Rajasthan; India.
+773,111,,Multiple parents; from concordance comment: Neem Ka Thana district was formed in July 2023 from parts of the Sikar and Jhunjhunu districts in Rajasthan
+773,103,,Multiple parents; from concordance comment: Neem Ka Thana district was formed in July 2023 from parts of the Sikar and Jhunjhunu districts in Rajasthan
+772,113,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+777,130,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+779,116,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+780,122,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+741,244,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+742,242,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+730,604,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+729,607,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+735,618,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+731,605,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+733,628,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+732,605,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+690,541,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+686,540,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+681,534,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+689,540,,Multiple parents; from concordance comment: The Jangaon district in the Indian state of Telangana was formed on October 11; 2016; from parts of the Warangal and Nalgonda districts:
+689,539,,Multiple parents; from concordance comment: The Jangaon district in the Indian state of Telangana was formed on October 11; 2016; from parts of the Warangal and Nalgonda districts:
+687,540,,Multiple parents; from concordance comment: The Jayashankar Bhupalpally district was formed in Telangana; India on October 11; 2016; when parts of the Warangal and Karimnagar districts
+687,534,,Multiple parents; from concordance comment: The Jayashankar Bhupalpally district was formed in Telangana; India on October 11; 2016; when parts of the Warangal and Karimnagar districts
+695,538,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+685,533,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+699,532,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+688,540,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+684,532,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+700,537,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+720,540,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+694,538,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+721,538,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+680,532,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+682,534,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+683,534,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+691,535,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+692,535,,Multiple parents; from concordance comment: The Siddipet district was formed from parts of the Medak; Karimnagar; and Warangal districts in Telangana.
+692,534,,Multiple parents; from concordance comment: The Siddipet district was formed from parts of the Medak; Karimnagar; and Warangal districts in Telangana.
+692,540,,Multiple parents; from concordance comment: The Siddipet district was formed from parts of the Medak; Karimnagar; and Warangal districts in Telangana.
+696,539,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+698,537,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+693,538,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+697,539,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+654,290,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+652,289,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+653,289,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+655,292,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+640,179,,Multiple parents; from concordance comment: the Amethi district in Uttar Pradesh was formed by merging parts of two other districts; Sultanpur and Rae Bareli
+640,158,,Multiple parents; from concordance comment: the Amethi district in Uttar Pradesh was formed by merging parts of two other districts; Sultanpur and Rae Bareli
+661,140,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+659,135,,Multiple parents; from concordance comment: Sambhal District at the time of creation was made from Two Tehsils of Moradabad District and one Tehsil of Gunnaur from Badaun District
+659,149,,Multiple parents; from concordance comment: Sambhal District at the time of creation was made from Two Tehsils of Moradabad District and one Tehsil of Gunnaur from Badaun District
+660,133,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+664,328,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+703,344,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+702,327,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)
+704,335,1,vijayshree-jayaraman concordance_parent.xlsx (1:1 parent mapping)

@@ -1,0 +1,295 @@
+# Spelling variants seen across NFHS, NCRB, UDISE+, LGD and Census 2011.
+# Any alias and its canonical name are treated as the same district within the state.
+# Add rows whenever the review queue (data/interim/match_review.csv) shows a real variant.
+state,alias,canonical
+Odisha,Angul,Anugul
+Odisha,Balasore,Baleshwar
+Odisha,Baleswar,Baleshwar
+Odisha,Boudh,Bauda
+Odisha,Baudh,Bauda
+Odisha,Bolangir,Balangir
+Odisha,Deogarh,Debagarh
+Odisha,Deogad,Debagarh
+Odisha,Jagatsinghpur,Jagatsinghapur
+Odisha,Jajpur,Jajapur
+Odisha,Keonjhar,Kendujhar
+Odisha,Kendrapada,Kendrapara
+Odisha,Khurda,Khordha
+Odisha,Khurdha,Khordha
+Odisha,Malkanagiri,Malkangiri
+Odisha,Nabarangpur,Nabarangapur
+Odisha,Nowrangpur,Nabarangapur
+Odisha,Sonepur,Subarnapur
+Odisha,Sonapur,Subarnapur
+Odisha,Sundergarh,Sundargarh
+Odisha,Phulbani,Kandhamal
+Odisha,Baragarh,Bargarh
+Odisha,Berhampur,Ganjam
+Odisha,DCP BBSR,Khordha
+Odisha,DCP CTC,Cuttack
+Odisha,Rourkela,Sundargarh
+# Added 2026-10-09 (engineering): NCRB police districts and commissionerates folded into their district; spelling variants across NCRB years.
+Andhra Pradesh,Cuddapah,Y.s.r.
+Andhra Pradesh,Guntur Urban,Guntur
+Andhra Pradesh,Nellore,Sri Potti Sriramulu Nellore
+Andhra Pradesh,Rajahmundry,East Godavari
+Andhra Pradesh,Tirupathi Urban,Chittoor
+Andhra Pradesh,Vijayawada City,Krishna
+Andhra Pradesh,Visakha Rural,Visakhapatnam
+Arunachal Pradesh,Kameng East,East Kameng
+Arunachal Pradesh,Kameng West,West Kameng
+Arunachal Pradesh,Papum Pare City,Papum Pare
+Arunachal Pradesh,Papum Pare Rural,Papum Pare
+Arunachal Pradesh,Siang East,East Siang
+Arunachal Pradesh,Siang Upper,Upper Siang
+Arunachal Pradesh,Siang West,West Siang
+Arunachal Pradesh,Subansiri Lower,Lower Subansiri
+Arunachal Pradesh,Subansiri Upper,Upper Subansiri
+Assam,Baska,Baksa
+Assam,Guwahati City,Kamrup Metropolitan
+Assam,Hamren,West Karbi Anglong
+Assam,Haren,West Karbi Anglong
+Assam,Morigaon,Marigaon
+Assam,N. C. Hills,Dima Hasao
+Assam,Sadia,Tinsukia
+Assam,Sibsagar,Sivasagar
+Assam,South Salmara,South Salmara Mancachar
+Bihar,Bagaha,Pashchim Champaran
+Bihar,Bettiah,Pashchim Champaran
+Bihar,Bhabhua,Kaimur (bhabua)
+Bihar,Motihari,Purba Champaran
+Bihar,Naugachia,Bhagalpur
+Bihar,Purnea,Purnia
+Chhattisgarh,Balodbazar,Balodabazar-Bhatapara
+Chhattisgarh,Bemetra,Bemetara
+Chhattisgarh,Bizapur,Bijapur
+Chhattisgarh,Dantewara,Dakshin Bastar Dantewada
+Chhattisgarh,Jagdalpur,Bastar
+Chhattisgarh,Janjgir,Janjgir-champa
+Chhattisgarh,Kabirdham,Kabeerdham
+Chhattisgarh,Kanker,Uttar Bastar Kanker
+Chhattisgarh,Mungali,Mungeli
+Chhattisgarh,Sarguja,Surguja
+Delhi,Dwarka,Central
+Delhi,Outer,Central
+Delhi,Outer North,Central
+Delhi,Rohini,Central
+Delhi,North-East,North East
+Delhi,North-West,North West
+Delhi,South-East,South East
+Delhi,South-West,South West
+Gujarat,Ahmedabad City,Ahmadabad
+Gujarat,Ahmedabad Rural,Ahmadabad
+Gujarat,Dang,The Dangs
+Gujarat,Kachchh East(G),Kachchh
+Gujarat,Kachchh West(B),Kachchh
+Gujarat,Mehsana,Mahesana
+Gujarat,Rajkot City,Rajkot
+Gujarat,Rajkot Rural,Rajkot
+Gujarat,Surat City,Surat
+Gujarat,Surat Rural,Surat
+Gujarat,Vadodara City,Vadodara
+Gujarat,Vadodara Rural,Vadodara
+Haryana,Hansi,Hisar
+Himachal Pradesh,Baddi,Solan
+Jammu & Kashmir,Awantipora,Pulwama
+Jammu & Kashmir,Handwara,Kupwara
+Jammu & Kashmir,Sopore,Baramula
+Ladakh,Leh,Leh Ladakh
+Jharkhand,Chaibasa,Pashchimi Singhbhum
+Jharkhand,Jamshedpur,Purbi Singhbhum
+Jharkhand,Saraikela,Saraikela-kharsawan
+Karnataka,Belagavi City,Belgaum
+Karnataka,Bengaluru City,Bangalore
+Karnataka,Bengaluru District,Bangalore Rural
+Karnataka,Hubballi Dharwad City,Dharwad
+Karnataka,K.G.F.,Kolar
+Karnataka,Kalaburgi City,Gulbarga
+Karnataka,Mangaluru City,Dakshina Kannada
+Karnataka,Mysuru City,Mysore
+Kerala,Ernakulam Commr.,Ernakulam
+Kerala,Ernakulam Rural,Ernakulam
+Kerala,Kannur City,Kannur
+Kerala,Kannur Rural,Kannur
+Kerala,Kollam Commr.,Kollam
+Kerala,Kollam Rural,Kollam
+Kerala,Kozhikode Commr.,Kozhikode
+Kerala,Kozhikode Rural,Kozhikode
+Kerala,Thrissur Commr.,Thrissur
+Kerala,Thrissur Rural,Thrissur
+Kerala,Trivandrum Commr.,Thiruvananthapuram
+Kerala,Trivandrum Rural,Thiruvananthapuram
+Madhya Pradesh,Agar,Agar-Malwa
+Madhya Pradesh,Bhopal Commissionarate,Bhopal
+Madhya Pradesh,Bhopal Rural,Bhopal
+Madhya Pradesh,Indore Commissionarate,Indore
+Madhya Pradesh,Indore Rural,Indore
+Madhya Pradesh,Narsinghpur,Narsimhapur
+Maharashtra,Amravati Commr.,Amravati
+Maharashtra,Amravati Rural,Amravati
+Maharashtra,Aurangabad Commr.,Aurangabad
+Maharashtra,Aurangabad Rural,Aurangabad
+Maharashtra,Mira Bhayandar Vasai Virar Commr.,Thane
+Maharashtra,Mumbai Commr.,Mumbai
+Maharashtra,Nagpur Commr.,Nagpur
+Maharashtra,Nagpur Rural,Nagpur
+Maharashtra,Nasik Commr.,Nashik
+Maharashtra,Nasik Rural,Nashik
+Maharashtra,Navi Mumbai,Thane
+Maharashtra,Pimpri Chinchwad City,Pune
+Maharashtra,Pune Commr.,Pune
+Maharashtra,Pune Rural,Pune
+Maharashtra,Solapur Commr.,Solapur
+Maharashtra,Solapur Rural,Solapur
+Maharashtra,Thane Commr.,Thane
+Maharashtra,Thane Rural,Thane
+Meghalaya,Garo Hills East,East Garo Hills
+Meghalaya,Garo Hills North,North Garo Hills
+Meghalaya,Garo Hills South,South Garo Hills
+Meghalaya,Garo Hills South West,South West Garo Hills
+Meghalaya,Garo Hills West,West Garo Hills
+Meghalaya,Jaintia Hills East,East Jaintia Hills
+Meghalaya,Jaintia Hills West,West Jaintia Hills
+Meghalaya,Khasi Hills East,East Khasi Hills
+Meghalaya,Khasi Hills Eastern West,Eastern West Khasi Hills
+Meghalaya,Khasi Hills South West,South West Khasi Hills
+Meghalaya,Khasi Hills West,West Khasi Hills
+Punjab,Amritsar Rural,Amritsar
+Punjab,CP Amritsar,Amritsar
+Punjab,Batala,Gurdaspur
+Punjab,CP Ludhiana,Ludhiana
+Punjab,Ludhiana Rural,Ludhiana
+Punjab,Khanna,Ludhiana
+Punjab,Jalandhar Rural,Jalandhar
+Punjab,Ropar,Rupnagar
+Punjab,SBS Nagar,Shahid Bhagat Singh Nagar
+Rajasthan,Bhiwadi,Alwar
+Rajasthan,Jaipur East,Jaipur
+Rajasthan,Jaipur Metro,Jaipur
+Rajasthan,Jaipur North,Jaipur
+Rajasthan,Jaipur Rural,Jaipur
+Rajasthan,Jaipur South,Jaipur
+Rajasthan,Jaipur West,Jaipur
+Rajasthan,Jodhpur East,Jodhpur
+Rajasthan,Jodhpur Rural,Jodhpur
+Rajasthan,Jodhpur West,Jodhpur
+Rajasthan,Kota City,Kota
+Rajasthan,Kota Rural,Kota
+Tamil Nadu,Avadi,Thiruvallur
+Tamil Nadu,Coimbatore City,Coimbatore
+Tamil Nadu,Kanchipuram,Kancheepuram
+Tamil Nadu,Madurai City,Madurai
+Tamil Nadu,Nilgiris,The Nilgiris
+Tamil Nadu,Salem City,Salem
+Tamil Nadu,Tambaram,Kancheepuram
+Tamil Nadu,Thirunelveli City,Tirunelveli
+Tamil Nadu,Tiruppattur,Tirupathur
+Tamil Nadu,Tiruppur City,Tiruppur
+Tamil Nadu,Trichy,Tiruchirappalli
+Tamil Nadu,Trichy City,Tiruchirappalli
+Telangana,Cyberabad,Ranga Reddy
+Telangana,Cyberabad Commissionerate,Ranga Reddy
+Telangana,Hyderabad City,Hyderabad
+Telangana,Hyderabad Commissionerate,Hyderabad
+Telangana,Jagityal,Jagitial
+Telangana,Karimnagar Commissionerate,Karimnagar
+Telangana,Khammam Commissionerate,Khammam
+Telangana,Mahaboob Nagar,Mahabubnagar
+Telangana,Nizamabad Commissionerate,Nizamabad
+Telangana,Rachakonda Commissionerate,Ranga Reddy
+Telangana,Ramagundam Commissionerate,Peddapalli
+Telangana,Siddipet Commissionerate,Siddipet
+Telangana,Warangal City,Warangal
+Telangana,Warangal Commissionerate,Warangal
+Telangana,Warangal Rural,Warangal
+Tripura,North,North Tripura
+Tripura,South,South Tripura
+Tripura,West,West Tripura
+Uttar Pradesh,Badaun,Budaun
+Uttar Pradesh,Chandoli,Chandauli
+Uttar Pradesh,Fatehgarh,Farrukhabad
+Uttar Pradesh,Kanpur Commissionarate,Kanpur Nagar
+Uttar Pradesh,Kanpur Outer,Kanpur Nagar
+Uttar Pradesh,Khiri,Kheri
+Uttar Pradesh,Lucknow Commissionarate,Lucknow
+Uttar Pradesh,Lucknow Grameen,Lucknow
+Uttar Pradesh,Raibareilly,Rae Bareli
+Uttar Pradesh,Varanasi Commissionarate,Varanasi
+Uttar Pradesh,Vasanasi Dehat,Varanasi
+West Bengal,Asansol-Durgapur PC,Barddhaman
+West Bengal,Bangaon,North 24 Parganas
+West Bengal,Barasat,North 24 Parganas
+West Bengal,Barrackpur PC,North 24 Parganas
+West Bengal,Basirhat,North 24 Parganas
+West Bengal,Bidhannagar PC,North 24 Parganas
+West Bengal,Baruipur Police,South 24 Parganas
+West Bengal,Diamond Harbour Police,South 24 Parganas
+West Bengal,Sundarban Police,South 24 Parganas
+West Bengal,Burdwan,Barddhaman
+West Bengal,Burdwan (old),Barddhaman
+West Bengal,Chandannagar PC,Hugli
+West Bengal,Hooghly Rural Police,Hugli
+West Bengal,Howrah PC,Haora
+West Bengal,Howrah Rural,Haora
+West Bengal,Islampur,Uttar Dinajpur
+West Bengal,Raiganj,Uttar Dinajpur
+West Bengal,Jangipur Police District,Murshidabad
+West Bengal,Murshidabad Police District,Murshidabad
+West Bengal,Jhargram Police District,Paschim Medinipur
+West Bengal,Krishnagar,Nadia
+West Bengal,Ranaghat,Nadia
+West Bengal,Siliguri PC,Darjiling
+Andaman & Nicobar Islands,Nicobar,Nicobars
+Andaman & Nicobar Islands,South Andaman,South Andamans
+# Confirmed 2026-10-09 (engineering): fuzzy matches reviewed by hand and fixed as aliases.
+Andhra Pradesh,Prakasham,Prakasam
+Bihar,Nawadah,Nawada
+Gujarat,Banaskantha,Banas Kantha
+Gujarat,Panchmahal,Panch Mahals
+Gujarat,Sabarkantha,Sabar Kantha
+Haryana,Hissar,Hisar
+Haryana,Mahendergarh,Mahendragarh
+Jharkhand,Lohardagga,Lohardaga
+Karnataka,Chamarajnagar,Chamrajnagar
+Karnataka,Kalaburgi,Kalaburagi
+Karnataka,Ramanagar,Ramanagara
+Karnataka,Yadgiri,Yadgir
+Kerala,Alapuzha,Alappuzha
+Kerala,Kasargod,Kasaragod
+Kerala,Wayanadu,Wayanad
+Madhya Pradesh,Ashok Nagar,Ashoknagar
+Punjab,CP Jalandhar,Jalandhar
+Tamil Nadu,Kanyakumari,Kanniyakumari
+Tamil Nadu,Pudukottai,Pudukkottai
+Tamil Nadu,Ramnathapuram,Ramanathapuram
+Tamil Nadu,Sivagangai,Sivaganga
+Tamil Nadu,Thirunelveli,Tirunelveli
+Tamil Nadu,Thiruvannamalai,Tiruvannamalai
+Tamil Nadu,Thoothukudi,Thoothukkudi
+Tamil Nadu,Villupuram,Viluppuram
+Tripura,Kowai,Khowai
+Tripura,Sipahijala,Sepahijala
+Uttar Pradesh,Barabanki,Bara Banki
+Uttar Pradesh,Bulandshahar,Bulandshahr
+Uttar Pradesh,Gautambudh Nagar,Gautam Buddha Nagar
+Uttar Pradesh,Kushi Nagar,Kushinagar
+Uttar Pradesh,Sant Kabirnagar,Sant Kabir Nagar
+Uttar Pradesh,Sidharthnagar,Siddharth Nagar
+Uttar Pradesh,St.Ravidasnagar,Sant Ravi Das Nagar(bhadohi)
+Uttarakhand,Udhamsingh Nagar,Udham Singh Nagar
+West Bengal,Coochbehar,Cooch Behar
+West Bengal,Purab Medinipur,Purba Medinipur
+Haryana,Charkhi Dadri,Charki Dadri
+Telangana,Jayashankar Bhupalpalli,Jayashankar Bhupalapally
+Telangana,Kumaram Bheem Asifabad,Kumuram Bheem Asifabad
+Telangana,Rajanna Siricilla,Rajanna Sircilla
+Arunachal Pradesh,Kra Dadi,Kra Daadi
+Arunachal Pradesh,Shiyomi,Shi Yomi
+Arunachal Pradesh,Pakkessang,Pakke Kessang
+Telangana,Mulug,Mulugu
+Chhattisgarh,Gaurela-Pendra-Marwari,Gaurela-Pendra-Marwahi
+Andhra Pradesh,Anantapuramu,Ananthapuramu
+Karnataka,Vijayanagara,Vijayanagar
+Chhattisgarh,Balrampur,Balrampur-Ramanujganj
+D&N Haveli,D&N Haveli,Dadra & Nagar Haveli
+D&N Haveli and Daman & Diu,D&N Haveli,Dadra And Nagar Haveli

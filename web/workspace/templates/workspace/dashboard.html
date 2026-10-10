@@ -1,0 +1,77 @@
+{% extends "workspace/base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="head">
+  <div>
+    <h1>Sprint dashboard</h1>
+    <p class="muted">Submission to IRIS by noon on Tue 13 Oct. Gates: data go/no-go (3 Oct), submission (13 Oct).</p>
+  </div>
+</div>
+
+<div class="grid g4" style="margin-bottom:14px">
+  <div class="card stat">
+    <div class="k">Data sources with files</div>
+    <div class="v">{{ s.sources_with_files }} / {{ s.sources_total }}</div>
+    <a href="{% url 'data' %}" class="small">Upload data</a>
+  </div>
+  <div class="card stat">
+    <div class="k">Crosswalk</div>
+    <div class="v">{% if s.panel_built %}{{ s.review_names }} to review{% else %}Not built{% endif %}</div>
+    {% if s.crosswalk_problems %}<span class="pill warn">{{ s.crosswalk_problems }} problems</span>{% elif s.panel_built %}<span class="pill ok">No problems</span>{% else %}<a class="small" href="{% url 'pipeline' %}">Run the pipeline</a>{% endif %}
+  </div>
+  <div class="card stat">
+    <div class="k">NFHS-6</div>
+    <div class="v">{{ s.seal_state }}</div>
+    <a href="{% url 'data' %}#nfhs6" class="small">Data sources</a>
+  </div>
+  <div class="card stat">
+    <div class="k">Model outputs</div>
+    {% if not s.outputs.present %}<div class="v">None yet</div>
+    {% elif s.outputs.error %}<div class="v">Invalid</div><span class="pill bad">Fails the contract</span>
+    {% elif s.outputs.mock %}<div class="v">Mock only</div><span class="pill bad">Not results</span>
+    {% else %}<div class="v">{{ s.outputs.flagged }} flagged</div><span class="pill ok">Run {{ s.outputs.run|slice:":10" }}</span>{% endif %}
+  </div>
+</div>
+
+<div class="card" style="margin-bottom:14px">
+  <h2>11-day plan</h2>
+  <div class="timeline">
+    {% for d in days %}
+      <div class="day {{ d.state }}{% if d.gate %} gate{% endif %}" title="{{ d.goal }}">
+        <b>{{ d.label }}</b>{{ d.goal }}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="grid g2">
+  <div class="card">
+    <h2>IRIS submission checklist</h2>
+    {% for c in checklist %}
+      <div class="check{% if c.done %} done{% endif %}">
+        <form method="post" action="{% url 'checklist_toggle' c.pk %}">{% csrf_token %}
+          <button class="box{% if c.done %} on{% endif %}" aria-label="{% if c.done %}Mark not done{% else %}Mark done{% endif %}: {{ c.text }}"></button>
+        </form>
+        <div>
+          <div class="t">{{ c.text }}</div>
+          <div class="small muted">{{ c.owner }}{% if c.done %} · done by {{ c.done_by.username }} {{ c.done_at|date:"j M, H:i" }}{% endif %}</div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="card">
+    <h2>Recent pipeline runs</h2>
+    {% if runs %}
+      <div class="tbl-wrap"><table>
+        <tr><th>When</th><th>Step</th><th>By</th><th>Result</th></tr>
+        {% for r in runs %}
+          <tr><td>{{ r.started|date:"j M H:i" }}</td><td><a href="{% url 'pipeline_detail' r.pk %}">{{ r.get_step_display }}</a></td>
+            <td>{{ r.user.username }}</td><td>{% if r.ok %}<span class="pill ok">OK</span>{% else %}<span class="pill bad">Failed</span>{% endif %}</td></tr>
+        {% endfor %}
+      </table></div>
+    {% else %}
+      <p class="muted">Nothing run yet. Upload data, then build the crosswalk and panel on the Pipeline page.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

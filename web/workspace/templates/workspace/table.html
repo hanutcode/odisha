@@ -1,0 +1,12 @@
+{% extends "workspace/base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="head"><div><h1>{{ title }}</h1><p class="muted">{{ rows|length }} rows{% if rows|length == 500 %} (first 500 shown){% endif %}</p></div>
+  <a class="btn" href="{{ back }}">Back</a></div>
+{% if rows %}
+<div class="tbl-wrap"><table>
+  <tr>{% for c in cols %}<th>{{ c }}</th>{% endfor %}</tr>
+  {% for r in rows %}<tr>{% for v in r %}<td>{{ v }}</td>{% endfor %}</tr>{% endfor %}
+</table></div>
+{% else %}<div class="card muted">The file is still an empty template.</div>{% endif %}
+{% endblock %}

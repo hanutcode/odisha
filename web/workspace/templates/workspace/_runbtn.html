@@ -1,0 +1,3 @@
+<form method="post" action="{% url 'pipeline_run' step %}" style="margin:0">{% csrf_token %}
+  <button class="btn primary" type="submit" {% if not is_engineer and not is_student %}disabled{% endif %}>Run</button>
+</form>

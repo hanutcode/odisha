@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Odisha Hidden Risk Map</title>
+<style>
+:root{
+  --bg:#f7f6f2; --surface:#ffffff; --text:#1d1c1a; --muted:#6b6862; --line:#e3e0d8;
+  --accent:#2f5d8a; --warn-bg:#fff4d6; --warn-text:#6a4a00; --mock-bg:#fde2e1; --mock-text:#8a1c17;
+  --flag:#1d1c1a; --nodata:#d9d6cf;
+  --r0:#fdf0e6; --r1:#f8cfae; --r2:#ee9f6d; --r3:#d9683a; --r4:#a63c1a;
+  --b0:#eef3f9; --b1:#c6d8ec; --b2:#8fb4da; --b3:#4f84bd; --b4:#1f5490;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#161614; --surface:#211f1c; --text:#efede8; --muted:#a39f97; --line:#38352f;
+    --accent:#8db8e3; --warn-bg:#3a3018; --warn-text:#f2d58c; --mock-bg:#46201e; --mock-text:#f6b4ae;
+    --flag:#ffffff; --nodata:#3d3a35;
+    --r0:#3b2a20; --r1:#6b3d24; --r2:#a3532b; --r3:#d97a45; --r4:#f6b07c;
+    --b0:#1d2a38; --b1:#244466; --b2:#2f6496; --b3:#5a90c6; --b4:#a6c8ea;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#161614; --surface:#211f1c; --text:#efede8; --muted:#a39f97; --line:#38352f;
+  --accent:#8db8e3; --warn-bg:#3a3018; --warn-text:#f2d58c; --mock-bg:#46201e; --mock-text:#f6b4ae;
+  --flag:#ffffff; --nodata:#3d3a35;
+  --r0:#3b2a20; --r1:#6b3d24; --r2:#a3532b; --r3:#d97a45; --r4:#f6b07c;
+  --b0:#1d2a38; --b1:#244466; --b2:#2f6496; --b3:#5a90c6; --b4:#a6c8ea;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);
+  font:16px/1.5 system-ui,-apple-system,"Segoe UI","Noto Sans","Noto Sans Oriya","Kalinga","Oriya Sangam MN",
+  "Noto Sans Devanagari","Kohinoor Devanagari","Nirmala UI",sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:20px 16px 40px}
+header{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start;justify-content:space-between}
+h1{font-size:1.55rem;line-height:1.25;margin:0 0 4px}
+.sub{color:var(--muted);margin:0}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
+.seg button{border:0;background:transparent;color:var(--text);padding:8px 14px;font:inherit;cursor:pointer;min-height:40px}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--surface);font-weight:600}
+.banner{border-radius:10px;padding:10px 14px;margin:14px 0 0;font-size:.95rem}
+.welfare{background:var(--warn-bg);color:var(--warn-text)}
+.mock{background:var(--mock-bg);color:var(--mock-text);font-weight:700}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:16px 0 10px}
+.controls .lbl{color:var(--muted);font-size:.9rem}
+.grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:16px}
+@media (max-width:820px){.grid{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
+svg{width:100%;height:auto;display:block}
+.dist{stroke:var(--surface);stroke-width:1.2;cursor:pointer;transition:opacity .15s}
+.dist:hover{opacity:.82}
+.dist.sel{stroke:var(--accent);stroke-width:4}
+.flagdot{fill:var(--flag);stroke:var(--surface);stroke-width:2;pointer-events:none}
+.legend{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:.85rem;color:var(--muted);flex-wrap:wrap}
+.legend .sw{display:flex}
+.legend .sw span{width:30px;height:12px}
+.legend .fl{display:inline-flex;align-items:center;gap:6px;margin-left:auto}
+.legend .fl i{width:12px;height:12px;border-radius:50%;background:var(--flag);display:inline-block}
+.detail h2{margin:0 0 6px;font-size:1.3rem}
+.stat{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid var(--line)}
+.stat b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.stat span{color:var(--muted)}
+.tag{display:inline-block;border-radius:999px;padding:2px 10px;font-size:.85rem;font-weight:600;margin-bottom:8px}
+.tag.on{background:var(--flag);color:var(--surface)}
+.tag.off{background:var(--line);color:var(--text)}
+.why{margin-top:10px;padding:10px 12px;border-left:4px solid var(--accent);background:var(--bg);border-radius:6px}
+.hint{color:var(--muted)}
+.list{margin:14px 0 0;padding:0;list-style:none}
+.list li button{width:100%;text-align:left;display:flex;justify-content:space-between;gap:10px;border:0;
+  background:transparent;color:var(--text);font:inherit;padding:8px 4px;border-top:1px solid var(--line);cursor:pointer}
+.list li button:hover{background:var(--bg)}
+.list h3{font-size:1rem;margin:0}
+footer{margin-top:16px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1 id="t-title"></h1>
+      <p class="sub" id="t-sub"></p>
+    </div>
+    <div class="seg" id="lang" role="group" aria-label="Language"></div>
+  </header>
+  <div class="banner mock" id="mock" hidden></div>
+  <div class="banner welfare" id="t-welfare"></div>
+
+  <div class="controls">
+    <span class="lbl" id="t-view"></span>
+    <div class="seg" id="views" role="group"></div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <svg id="map" role="img" aria-label="Map of Odisha districts"></svg>
+      <div class="legend">
+        <span id="lg-low"></span><div class="sw" id="sw"></div><span id="lg-high"></span>
+        <span class="fl"><i></i><span id="lg-flag"></span></span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="detail" id="detail"></div>
+      <div id="flagged"></div>
+    </div>
+  </div>
+  <footer><span id="t-src"></span> · <span id="run"></span></footer>
+</div>
+
+<script>
+const DATA = /*__DATA__*/null;
+const SURVEY = DATA.mode === "survey";
+const S = {lang: "en", view: SURVEY ? "n5" : "est", sel: null};
+const NS = "http://www.w3.org/2000/svg";
+const VIEWS = SURVEY
+  ? {n5: {key: "n5", ramp: "r", fmt: pv, label: "view_n5"}, n4: {key: "n4", ramp: "r", fmt: pv, label: "view_n4"},
+     chg: {key: "chg", ramp: "b", fmt: sg, label: "view_chg"},
+     ...(DATA.districts.some(d => d.rec != null) ? {rec: {key: "rec", ramp: "b", fmt: int, label: "view_rec_s", btn: "btn_rec"}} : {}),
+     ...(DATA.districts.some(d => d.drop != null) ? {drop: {key: "drop", ramp: "r", fmt: pv, label: "view_drop", btn: "btn_drop"}} : {})}
+  : {est: {key: "est", ramp: "r", fmt: pct, label: "view_est"}, rec: {key: "rec", ramp: "b", fmt: int, label: "view_rec"},
+     det: {key: "det", ramp: "b", fmt: pct, label: "view_det"}};
+function pct(v){return (v*100).toFixed(1) + "%"}
+function pv(v){return v == null ? "—" : v.toFixed(1) + "%"}
+function sg(v){return v == null ? "—" : (v > 0 ? "+" : "") + v.toFixed(1) + " pts"}
+function int(v){return v == null ? "—" : Math.round(v).toLocaleString("en-IN")}
+function t(k){return DATA.ui[S.lang][k] || DATA.ui.en[k] || k}
+function nm(d){return d.name[S.lang] || d.name.en}
+
+function quantileBins(vals){
+  const s = vals.filter(v => v != null).sort((a,b)=>a-b), q = [];
+  for (let i=1;i<5;i++) q.push(s[Math.floor(i*s.length/5)]);
+  return v => v == null ? null : q.filter(x => v >= x).length;
+}
+
+function drawMap(){
+  const svg = document.getElementById("map");
+  svg.setAttribute("viewBox", `0 0 ${DATA.w.toFixed(0)} ${DATA.h.toFixed(0)}`);
+  svg.innerHTML = "";
+  const v = VIEWS[S.view], bin = quantileBins(DATA.districts.map(d => d[v.key]));
+  const g = document.createElementNS(NS, "g"), dots = document.createElementNS(NS, "g");
+  for (const d of DATA.districts){
+    const p = document.createElementNS(NS, "path");
+    p.setAttribute("d", d.d);
+    p.setAttribute("class", "dist" + (S.sel === d.code ? " sel" : ""));
+    const b = bin(d[v.key]);
+    p.style.fill = b == null ? "var(--nodata)" : `var(--${v.ramp}${b})`;
+    p.setAttribute("tabindex", "0");
+    p.setAttribute("role", "button");
+    p.setAttribute("aria-label", `${nm(d)}: ${v.fmt(d[v.key])}`);
+    const title = document.createElementNS(NS, "title");
+    title.textContent = `${nm(d)} — ${v.fmt(d[v.key])}`;
+    p.appendChild(title);
+    p.onclick = () => select(d.code);
+    p.onkeydown = e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); select(d.code); } };
+    g.appendChild(p);
+    if (d.flag){
+      const [cx, cy] = d.c.split(",");
+      const c = document.createElementNS(NS, "circle");
+      c.setAttribute("cx", cx); c.setAttribute("cy", cy); c.setAttribute("r", 9);
+      c.setAttribute("class", "flagdot");
+      dots.appendChild(c);
+    }
+  }
+  if (S.sel !== null){ const s = [...g.children].find(p => p.classList.contains("sel")); if (s) g.appendChild(s); }
+  svg.append(g, dots);
+  document.getElementById("sw").innerHTML = [0,1,2,3,4].map(i => `<span style="background:var(--${v.ramp}${i})"></span>`).join("");
+}
+
+function select(code){ S.sel = code; render(); }
+
+function drawDetail(){
+  const el = document.getElementById("detail");
+  const d = DATA.districts.find(x => x.code === S.sel);
+  if (!d){ el.innerHTML = `<p class="hint">${t("click_hint")}</p>`; return; }
+  if (SURVEY){
+    el.innerHTML = `
+      <h2>${nm(d)}</h2>
+      <div class="stat"><span>${t("view_n5")}</span><b>${pv(d.n5)}</b></div>
+      <div class="stat"><span>${t("view_n4")}</span><b>${pv(d.n4)}</b></div>
+      <div class="stat"><span>${t("view_chg")}</span><b>${sg(d.chg)}</b></div>
+      ${VIEWS.rec ? `<div class="stat"><span>${t("view_rec_s")}</span><b>${int(d.rec)}</b></div>` : ""}
+      ${VIEWS.drop ? `<div class="stat"><span>${t("view_drop")}</span><b>${pv(d.drop)}</b></div>` : ""}
+      <div class="why">${t("survey_note")}</div>`;
+    return;
+  }
+  const r = d.flag && DATA.reasons[d.reason] ? (DATA.reasons[d.reason][S.lang] || DATA.reasons[d.reason].en) : "";
+  el.innerHTML = `
+    <h2>${nm(d)}</h2>
+    <span class="tag ${d.flag ? "on" : "off"}">${d.flag ? t("flagged") : t("not_flagged")}</span>
+    <div class="stat"><span>${t("est_rate")}</span><b>${pct(d.est)}</b></div>
+    <div class="stat"><span>${t("interval")}</span><b>${pct(d.lo)} – ${pct(d.hi)}</b></div>
+    <div class="stat"><span>${t("recorded")}</span><b>${int(d.rec)}</b></div>
+    <div class="stat"><span>${t("detection")}</span><b>${pct(d.det)}</b></div>
+    ${r ? `<div class="why"><strong>${t("why")}</strong><br>${r}</div>` : ""}`;
+}
+
+function drawFlagged(){
+  if (SURVEY){
+    const v = VIEWS[S.view], k = v.key;
+    const f = DATA.districts.filter(d => d[k] != null).sort((a,b) => b[k] - a[k]).slice(0, 8);
+    document.getElementById("flagged").innerHTML = `<ul class="list"><li><h3>${t("highest_list_v")}: ${t(v.label)}</h3></li>` +
+      f.map(d => `<li><button data-c="${d.code}"><span>${nm(d)}</span><b>${v.fmt(d[k])}</b></button></li>`).join("") + "</ul>";
+    document.querySelectorAll("#flagged button").forEach(b => b.onclick = () => select(+b.dataset.c));
+    return;
+  }
+  const f = DATA.districts.filter(d => d.flag).sort((a,b) => b.est - a.est);
+  document.getElementById("flagged").innerHTML = `<ul class="list"><li><h3>${t("flagged_list")} (${f.length})</h3></li>` +
+    f.map(d => `<li><button data-c="${d.code}"><span>${nm(d)}</span><b>${pct(d.est)}</b></button></li>`).join("") + "</ul>";
+  document.querySelectorAll("#flagged button").forEach(b => b.onclick = () => select(+b.dataset.c));
+}
+
+function drawChrome(){
+  document.documentElement.lang = S.lang;
+  for (const [id, k] of [["t-title","title"],["t-sub","subtitle"],["t-welfare","welfare_only"],["t-view","view"],
+                         ["t-src","source_note"],["lg-low","low"],["lg-high","high"],["lg-flag","flagged"]])
+    document.getElementById(id).textContent = t(k);
+  const m = document.getElementById("mock");
+  m.hidden = !DATA.mock && !SURVEY; m.textContent = SURVEY ? t("survey_banner") : t("mock_banner");
+  m.className = SURVEY ? "banner welfare" : "banner mock";
+  document.getElementById("run").textContent = SURVEY ? t("survey_source") : "model run: " + DATA.run;
+  document.querySelector(".legend .fl").style.display = SURVEY ? "none" : "";
+  if (SURVEY){ document.getElementById("t-title").textContent = t("survey_title"); document.getElementById("t-sub").textContent = t("survey_sub"); }
+  document.getElementById("lang").innerHTML = ["en","hi","or"].map(l =>
+    `<button data-l="${l}" aria-pressed="${S.lang===l}">${DATA.ui[l].lang_name}</button>`).join("");
+  document.querySelectorAll("#lang button").forEach(b => b.onclick = () => { S.lang = b.dataset.l; render(); });
+  document.getElementById("views").innerHTML = Object.entries(VIEWS).map(([v,o]) =>
+    `<button data-v="${v}" aria-pressed="${S.view===v}" title="${t(o.label)}">${t(o.btn || o.label)}</button>`).join("");
+  document.querySelectorAll("#views button").forEach(b => b.onclick = () => { S.view = b.dataset.v; render(); });
+}
+
+function render(){ drawChrome(); drawMap(); drawDetail(); drawFlagged(); }
+render();
+</script>
+</body>
+</html>
